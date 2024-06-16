@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Form</title>
+    <!-- Add your CSS stylesheets or CDN links here -->
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Review Form</h1>
+    </header>
+    <main>
+        <form action="/reviews" method="POST">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required><br><br>
+
+            <label for="body">Review:</label><br>
+            <textarea id="body" name="body" rows="4" cols="50" required></textarea><br><br>
+
+            <label for="rating">Rating:</label>
+            <input type="number" id="rating" name="rating" min="1" max="5" required><br><br>
+
+            <!-- Add additional fields as needed -->
+
+            <button type="submit">Submit Review</button>
+        </form>
+    </main>
+    <footer>
+        <!-- Add footer content here -->
+    </footer>
+    <!-- Add your JavaScript code here -->
+    <script src="/script.js"></script>
+</body>
+</html>

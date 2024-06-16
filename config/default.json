@@ -1,0 +1,6 @@
+{
+    "mongoURI": "mongodb://127.0.0.1:27017/travelBookingSystem",
+    "jwtSecret": "mySuperSecretKey1234567890",
+    "sessionSecret": "anotherSuperSecretKey0987654321"
+  }
+  

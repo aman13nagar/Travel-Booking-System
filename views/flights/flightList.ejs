@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight List</title>
+    <!-- Add your CSS stylesheets or CDN links here -->
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Flight List</h1>
+    </header>
+    <main>
+        <h2>Available Flights</h2>
+        <ul>
+            <% flights.forEach(flight => { %>
+                <li>
+                    <p><strong>Airline:</strong> <%= flight.airline %></p>
+                    <p><strong>Departure:</strong> <%= flight.departure %></p>
+                    <p><strong>Arrival:</strong> <%= flight.arrival %></p>
+                    <p><strong>Duration:</strong> <%= flight.duration %></p>
+                    <p><strong>Price:</strong> <%= flight.price %></p>
+                    <!-- Add more flight details as needed -->
+                    <form action="/bookings" method="POST">
+                        <input type="hidden" name="flightId" value="<%= flight._id %>">
+                        <button type="submit">Book Now</button>
+                    </form>
+                </li>
+            <% }); %>
+        </ul>
+    </main>
+    <footer>
+        <!-- Add footer content here -->
+    </footer>
+    <!-- Add your JavaScript code here -->
+    <script src="/script.js"></script>
+</body>
+</html>

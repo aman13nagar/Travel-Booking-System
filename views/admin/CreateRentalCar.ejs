@@ -1,0 +1,81 @@
+<%- include('../layouts/main') %>
+
+<div class="container">
+    <div class="rental-car-container">
+        <h2>Create New Rental Car</h2>
+        <form action="/rental-cars/create" method="POST" class="rental-car-form">
+            <div class="form-group">
+                <label for="brand">Brand</label>
+                <input type="text" name="brand" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="model">Model</label>
+                <input type="text" name="model" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="year">Year</label>
+                <input type="number" name="year" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="pricePerDay">Price Per Day</label>
+                <input type="number" name="pricePerDay" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea name="description" class="form-control" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="transmissionType">Transmission Type</label>
+                <input type="text" name="transmissionType" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="seats">Seats</label>
+                <input type="number" name="seats" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Create Rental Car</button>
+        </form>
+    </div>
+</div>
+
+<style>
+  /* Custom styles for the rental car creation page */
+  .rental-car-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fafafa;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  .rental-car-form .form-group {
+    margin-bottom: 20px;
+  }
+  .rental-car-form label {
+    font-weight: bold;
+    color: #333;
+  }
+  .rental-car-form input[type="text"],
+  .rental-car-form input[type="number"],
+  .rental-car-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  .rental-car-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+  }
+  .rental-car-form button:hover {
+    background-color: #218838;
+  }
+</style>

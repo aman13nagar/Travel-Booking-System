@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Car List</title>
+    <!-- Add your CSS stylesheets or CDN links here -->
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Rental Car List</h1>
+    </header>
+    <main>
+        <h2>Available Rental Cars</h2>
+        <ul>
+            <% rentalCars.forEach(rentalCar => { %>
+                <li>
+                    <p><strong>Make:</strong> <%= rentalCar.make %></p>
+                    <p><strong>Model:</strong> <%= rentalCar.model %></p>
+                    <p><strong>Year:</strong> <%= rentalCar.year %></p>
+                    <p><strong>Price per Day:</strong> <%= rentalCar.pricePerDay %></p>
+                    <!-- Add more rental car details as needed -->
+                    <form action="/bookings" method="POST">
+                        <input type="hidden" name="rentalCarId" value="<%= rentalCar._id %>">
+                        <button type="submit">Book Now</button>
+                    </form>
+                </li>
+            <% }); %>
+        </ul>
+    </main>
+    <footer>
+        <!-- Add footer content here -->
+    </footer>
+    <!-- Add your JavaScript code here -->
+    <script src="/script.js"></script>
+</body>
+</html>

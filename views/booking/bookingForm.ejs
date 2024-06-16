@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        header {
+            background-color: #004f9a;
+            color: white;
+            padding: 10px 0;
+            position: fixed;
+            z-index: 1034;
+            width:100vw;
+            display: flex;
+            top:0;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header .logo {
+            font-size: 24px;
+        }
+        header nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        header nav ul li {
+            margin-right: 20px;
+        }
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        .user-info {
+            font-size: 16px;
+        }
+        main {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            margin-top:5%;
+        }
+        .booking-details {
+            flex: 0 0 65%;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .booking-details h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .flight-details h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .flight-details p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        .flight {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .flight-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .flight-info img {
+            margin-right: 10px;
+        }
+        .flight-schedule {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .flight-segment {
+            width: 45%;
+        }
+        .baggage-info {
+            font-size: 14px;
+            color: #555;
+        }
+        .fare-summary {
+            flex: 0 0 30%;
+            background-color: white;
+            padding: 20px;
+            position:fixed;
+            right:5%;
+            top:20%;
+            height:40vh;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-left: 20px;
+        }
+        .fare-summary h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .fare-detail, .total-amount {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .total-amount {
+            font-weight: bold;
+        }
+        .promo-code {
+            margin-top: 20px;
+        }
+        .promo-code label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .promo-code input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .important-info {
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+        .important-info h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .important-info p {
+            margin-bottom: 10px;
+        }
+        .important-info ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 10px;
+        }
+        .important-info ul li {
+            margin-bottom: 5px;
+        }
+        .important-info label {
+            display: flex;
+            align-items: center;
+        }
+        .important-info input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        .traveller-details, .booking-info {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .traveller-details h2, .booking-info h2 {
+            margin-top: 0;
+        }
+        .traveller-details .important, .booking-info .important {
+            margin-bottom: 10px;
+            color: #d9534f;
+            font-size: 14px;
+        }
+        .traveller-details .add-new {
+            margin-top: 10px;
+            color: #007bff;
+            cursor: pointer;
+        }
+        .traveller-details .add-new:hover {
+            text-decoration: underline;
+        }
+        .traveller-details .traveller-list {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+        }
+        .traveller-details .traveller-list p {
+            margin: 0;
+            font-size: 14px;
+            color: #555;
+        }
+        .traveller-details .checkbox label {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+        .traveller-details .checkbox input {
+            margin-right: 5px;
+        }
+        .booking-info .form-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .booking-info .form-group label {
+            flex: 1;
+        }
+        .booking-info .form-group select, .booking-info .form-group input {
+            flex: 2;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .submit-section {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .submit-section button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .submit-section button:disabled {
+            background-color: #cccccc;
+        }
+        /*  */
+        .cancellation-policy {
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        padding: 20px;
+        background-color: #f9f9f9;
+    }
+
+    .cancellation-policy h2 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 10px;
+        margin-top:0;
+    }
+    .cancellation-intro{
+        display:flex;
+    }
+    .cancellation-intro a{
+        position:absolute;
+        right:35%;
+    }
+    .policy-details {
+        margin-bottom: 20px;
+    }
+
+    .policy-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    .policy-info span {
+        font-weight: bold;
+    }
+    .penalty-chart{
+        display: flex;
+        position: relative;
+        margin-top: -10px;
+    }
+    .penalty-chart span {
+        display: block;
+        margin-bottom: 5px;
+        position:absolute;
+    }
+    .cancel-dates{
+        display: flex;
+        position: relative;
+    }
+    .cancel-dates span {
+        display: inline-block;
+        margin-right: 10px;
+        font-size: 14px;
+        color: #666;
+        position:absolute;
+    }
+
+    .upgrade-fare {
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .upgrade-fare h3 {
+        color: #333;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .fare-options {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+    }
+
+    .option {
+        flex: 1;
+        border: 1px solid green;
+        padding: 5px;
+        border-radius: 5px;
+        margin-right: 20px;
+    }
+
+    .option span {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 10px;
+        margin-top:10px;
+    }
+
+    .option ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .option ul li {
+        margin-bottom: 5px;
+    }
+
+    .zero-cancellation h3 {
+        color: #333;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .zero-cancellation-option {
+        margin-bottom: 10px;
+    }
+
+    .zero-cancellation-option label {
+        font-weight: bold;
+        display: block;
+    }
+
+    .zero-cancellation-option p {
+        margin: 5px 0;
+        color: #666;
+    }
+
+    .alert {
+        background-color: #ffe6e6;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .alert p {
+        margin: 0;
+        color: #ff3333;
+        font-weight: bold;
+    }
+    .form-container {
+    margin-top: 20px;
+}
+
+#travelers-container {
+    margin-bottom: 20px;
+}
+
+.traveler-form {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    margin-bottom: 10px;
+}
+
+.traveler-form input,
+.traveler-form select {
+    width: 40%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.traveler-form .button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+.gradient-bar {
+    height: 10px;
+    width: 0;
+    margin-top:18px;
+    background: linear-gradient(to right, green, red);
+    animation: gradientAppear 3s forwards;
+  }
+
+  @keyframes gradientAppear {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo" style="display:flex">T<div style="font-size:xxx-large">B</div>S</div>
+    <nav style="position:absolute;right:40%">
+        <ul>
+            <li><a href="#">Flights</a></li>
+            <li><a href="#">Hotels</a></li>
+            <li><a href="#">Holiday Packages</a></li>
+            <li><a href="#">Trains</a></li>
+            <li><a href="#">Buses</a></li>
+            <li><a href="#">Cabs</a></li>
+        </ul>
+    </nav>
+    <div class="user-info" style="position:absolute;right:2%">
+        <span>Hi Aman Nagar</span>
+    </div>
+</header>
+
+<main>
+    <form class="booking-details">
+        <h1>Complete your booking</h1>
+        <div class="flight-details">
+            <h2 id="route"></h2>
+            <div style="display:flex;gap:3%">
+                <p id="departure-date"></p>
+                <p id="numstops"></p>
+                <p id="completeduration"></p>
+            </div>
+            <div id="flight-segments"></div>
+        </div>
+        <section class="cancellation-policy">
+            <div class="cancellation-intro">
+                <h2>Cancellation Refund Policy</h2>
+                <a href="#">View Policy</a>
+            </div>
+            <div id="policy-details"></div>
+            <div class="upgrade-fare">
+                <h3>Get more benefits by upgrading your fare</h3>
+                <div class="fare-options">
+                    <div class="option">
+                        <div style="display:flex">
+                            <input type="radio" name="fare" value="basic" style="margin-top:-2px;" checked>
+                            <span>Basic ₹ 4,900</span>
+                        </div>
+                        <ul>
+                            <li>Cancellation fee starts at ₹ 3,000 (up to 4 days before departure)</li>
+                            <li>Seats Chargeable</li>
+                            <li>Airport Cabs not included</li>
+                            <li>Cabin bag 7 Kgs + Check-in 25 Kgs</li>
+                        </ul>
+                    </div>
+                    <div class="option">
+                        <div style="display:flex;">
+                            <input type="radio" name="fare" value="regular" style="margin-top:-2px">
+                            <span>Regular ₹ 6,050</span>
+                        </div>
+                        <ul>
+                            <li>Free cancellation up to 24 hours before departure</li>
+                            <li>Free Seats included</li>
+                            <li>Airport Cabs not included</li>
+                            <li>Cabin bag 7 Kgs + Check-in 25 Kgs</li>
+                        </ul>
+                    </div>
+                    <div class="option">
+                        <div style="display:flex;">
+                            <input type="radio" name="fare" value="premium" style="margin-top:-2px">
+                            <span>Premium ₹ 6,399</span>
+                        </div>
+                        <ul>
+                            <li>Free cancellation up to 24 hours before departure</li>
+                            <li>Free Seats included</li>
+                            <li>Airport Cabs worth ₹ 349 included</li>
+                            <li>Cabin bag 7 Kgs + Check-in 25 Kgs</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="zero-cancellation">
+                    <h3>Unsure of your travel plans? Get full flexibility with our special add-ons</h3>
+                    <div class="zero-cancellation-option">
+                        <input type="checkbox" id="zero-cancellation">
+                        <label for="zero-cancellation">Zero Cancellation ₹ 1,150</label>
+                        <p>Great! Get refund of up to ₹ 4,900 in case of cancellation up to 24 hours before departure! <a href="#">View T&C</a></p>
+                    </div>
+                </div>
+                <div class="alert">
+                    <p>Alert! Yesterday, 2,152 travellers cancelled without Zero Cancellation and lost ₹ 61.9 Lakhs</p>
+                </div>
+            </div>
+        </section>
+        <section class="important-info">
+            <h2>Important Information</h2>
+            <p>Check travel guidelines and baggage information below:</p>
+            <ul>
+                <li>Carry no more than 1 check-in baggage and 1 hand baggage per passenger. If violated, airline may levy extra charges.</li>
+                <li>Wearing a mask/face cover is no longer mandatory. However, all travellers are advised to do so as a precautionary measure.</li>
+            </ul>
+            <h3>AGE/ID PROOF:</h3>
+            <p>Only students above 12 years of age are eligible for special fares and/or additional baggage allowances. Carrying valid student ID cards and student visas (where applicable) is mandatory, else the passenger may be denied boarding or asked to pay for extra baggage.</p>
+            <label for="info-checkbox">
+                <input type="checkbox" id="info-checkbox" required> I have read and understood all the above mentioned information
+            </label>
+        </section>
+        <section class="traveller-details">
+            <h2>Traveller Details</h2>
+            <p>ADULT (12 yrs+)</p>
+            <p>Important: Enter name as mentioned on your passport or Government approved IDs.</p>
+            <div class="form-container">
+                <div id="travelers-container"></div>
+                <button class="add-new-traveler" onclick="addTravelerForm()">+ ADD TRAVELER</button>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> Add these travellers to My Traveller List. You won’t have to fill traveller info on your next visit.
+                </label>
+            </div>
+        </section>
+        <section class="booking-info">
+            <h2>Booking details will be sent to</h2>
+            <div class="form-group">
+                <label for="country-code">Country Code</label>
+                <select id="country-code">
+                    <option value="91">India(91)</option>
+                    <!-- Add other country codes as needed -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="mobile-no">Mobile No</label>
+                <input type="text" id="mobile-no" value="9588801001">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="gst-number">
+                    <input type="checkbox" id="gst-number"> I have a GST number (Optional)
+                </label>
+            </div>
+        </section>
+    
+        <div class="submit-section">
+            <button type="submit" id="book-flight-button" disabled>Book Flight</button>
+        </div>
+    </form>
+
+    <aside class="fare-summary">
+        <h2>Fare Summary</h2>
+        <div class="fare-detail">
+            <span>Base Fare</span>
+            <span id="base-fare">₹ 3,754</span>
+        </div>
+        <div class="fare-detail">
+            <span>Taxes and Surcharges</span>
+            <span>₹ 1,146</span>
+        </div>
+        <div class="total-amount">
+            <span>Total Amount</span>
+            <span>₹ 4,900</span>
+        </div>
+        <div class="promo-code">
+            <label for="promo">Enter promo code here</label>
+            <input type="text" id="promo" name="promo">
+        </div>
+    </aside>
+</main>
+<script>
+    function addTravelerForm() {
+    const travelerContainer = document.getElementById('travelers-container');
+    const travelerIndex = travelerContainer.children.length + 1;
+    const travelerDiv = document.createElement('div');
+    travelerDiv.className = 'traveler-form';
+    travelerDiv.dataset.index = travelerIndex;
+
+    travelerDiv.innerHTML = `
+        <input type="text" name="first-name" placeholder="First Name" required>
+        <input type="text" name="last-name" placeholder="Last Name" required>
+        <select name="gender" required>
+            <option value="" disabled selected>Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+        </select>
+        <input type="text" name="country-code" placeholder="Country Code" required>
+        <input type="text" name="mobile-number" placeholder="Mobile Number" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <select name="document-type" required>
+            <option value="" disabled selected>Document Type</option>
+            <option value="passport">Passport</option>
+            <option value="id-card">ID Card</option>
+        </select>
+        <input type="text" name="document-id" placeholder="Document ID" required>
+        <div class="button-container">
+            <button type="button" onclick="removeTravelerForm(this)">Remove Traveler</button>
+            <button type="button" onclick="storeTravelerForm(this, ${travelerIndex})">Add Traveler</button>
+        </div>
+    `;
+
+    travelerContainer.appendChild(travelerDiv);
+}
+
+function removeTravelerForm(button) {
+    const travelerDiv = button.closest('.traveler-form');
+    travelerDiv.remove();
+}
+
+function storeTravelerForm(button, travelerIndex) {
+    const travelerDiv = button.closest('.traveler-form');
+    travelerDiv.style.border = '2px solid green';
+    button.disabled = true;
+
+    // Create Show/Hide Information button
+    const toggleButton = document.createElement('button');
+    toggleButton.textContent = `Traveler ${travelerIndex}`;
+    toggleButton.type = 'button';
+    toggleButton.onclick = () => toggleInformation(travelerDiv, toggleButton);
+
+    // Create Update Information button
+    const updateButton = document.createElement('button');
+    updateButton.textContent = 'Update Information';
+    updateButton.type = 'button';
+    updateButton.onclick = () => updateInformation(travelerDiv, toggleButton, updateButton);
+
+    // Add Remove Traveler button during update
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Remove Traveler';
+    removeButton.type = 'button';
+    removeButton.onclick = () => removeTravelerForm(removeButton);
+
+    // Disable form inputs and change button container
+    travelerDiv.querySelectorAll('input, select').forEach(input => input.disabled = true);
+    const buttonContainer = travelerDiv.querySelector('.button-container');
+    buttonContainer.innerHTML = '';
+    buttonContainer.appendChild(toggleButton);
+    buttonContainer.appendChild(updateButton);
+    buttonContainer.appendChild(removeButton);
+}
+
+function toggleInformation(travelerDiv, toggleButton) {
+    const isVisible = travelerDiv.querySelector('input').style.display !== 'none';
+    travelerDiv.querySelectorAll('input, select').forEach(input => input.style.display = isVisible ? 'none' : 'block');
+    toggleButton.textContent = isVisible ? `Traveler ${travelerDiv.dataset.index}` : `Hide Traveler ${travelerDiv.dataset.index}`;
+}
+
+function updateInformation(travelerDiv, toggleButton, updateButton) {
+    const isDisabled = travelerDiv.querySelector('input').disabled;
+    travelerDiv.querySelectorAll('input, select').forEach(input => input.disabled = !isDisabled);
+    updateButton.textContent = isDisabled ? 'Save Information' : 'Update Information';
+    toggleButton.disabled = isDisabled; // Disable toggle button during update
+
+    // Re-enable the toggle button when saving information
+    if (!isDisabled) {
+        toggleButton.disabled = false;
+    }
+}
+</script>
+<script>
+    document.getElementById('book-flight-button').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    const travelerData = [];
+    document.querySelectorAll('#travelers-container .traveler-form').forEach(form => {
+        const formData = {
+            firstName: form.querySelector('input[name="first-name"]').value,
+            lastName: form.querySelector('input[name="last-name"]').value,
+            gender: form.querySelector('select[name="gender"]').value,
+            countryCode: form.querySelector('input[name="country-code"]').value,
+            mobileNumber: form.querySelector('input[name="mobile-number"]').value,
+            email: form.querySelector('input[name="email"]').value,
+            documentType: form.querySelector('select[name="document-type"]').value,
+            documentId: form.querySelector('input[name="document-id"]').value
+        };
+        travelerData.push(formData);
+    });
+
+    const bookingDetails = {
+        countryCode: document.getElementById('country-code').value,
+        mobileNumber: document.getElementById('mobile-no').value,
+        email: document.getElementById('email').value,
+        gstNumber: document.getElementById('gst-number').checked ? document.getElementById('gst-number').value : null,
+        travelers: travelerData
+    };
+
+    fetch('/api/book-flight', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(bookingDetails)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Booking successful!');
+        } else {
+            alert('Booking failed: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while booking. Please try again.');
+    });
+});
+
+// Enable the "Book Flight" button only when the necessary fields are filled
+document.querySelectorAll('input, select').forEach(input => {
+    input.addEventListener('input', () => {
+        const isValid = document.querySelector('.booking-details').checkValidity();
+        document.getElementById('book-flight-button').disabled = !isValid;
+    });
+});
+</script>
+<script>
+    function formatDate(dateString) {
+        const options = { weekday: 'long', month: 'short', day: 'numeric' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', options);
+    }
+    function extractPrice(priceString) {
+        const regex = /[\d,]+/;
+        const match = priceString.match(regex);
+        if (match) {
+            return parseFloat(match[0].replace(/,/g, ''));
+        }
+        return null; // or handle the case where the price is not found
+    }
+    function formatshortDate(dateString) {
+        const options = {day: 'numeric',month: 'short' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', options);
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+        const flightData = sessionStorage.getItem("selectedFlight");
+        const selectedAgent=sessionStorage.getItem("selectedAgent");
+        const selectedPrice=sessionStorage.getItem("selectedPrice");
+        const baseprice=sessionStorage.getItem("price");
+        console.log(selectedAgent,selectedPrice)
+        if (flightData) {
+            const Flight = JSON.parse(flightData);
+            const destinationimage=Flight.destinationImage;
+            console.log(Flight);
+            Flight.legs.forEach(flight=>{
+                // Populate route and departure date
+            document.getElementById("route").textContent = `${flight.origin.city} → ${flight.destination.city}`;
+            document.getElementById("departure-date").textContent = formatDate(flight.departure);
+            document.getElementById("completeduration").textContent=calculateDuration(flight.departure,flight.arrival);
+            document.getElementById("numstops").textContent=flight.segments.length>1?flight.segments.length-1+ ' Stop':'Non-stop'
+            // Populate flight segments
+            const flightSegmentsContainer = document.getElementById("flight-segments");
+            flight.segments.forEach(segment => {
+                const segmentElement = document.createElement("div");
+                segmentElement.className = "flight";
+
+                const departureTime = new Date(segment.departure).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false });
+                const arrivalTime = new Date(segment.arrival).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false });
+                const duration = calculateDuration(segment.departure, segment.arrival);
+
+                segmentElement.innerHTML = `
+                    <div class="flight-info" id="flight-information">
+                        <img id="flight-img" src="${segment.marketingCarrier.logo}" alt="${segment.marketingCarrier.name}" width="50" height="50">
+                        <div id="srcflight-details">
+                            <span id="flight-src">${segment.marketingCarrier.name} ${segment.flightNumber}</span>
+                            <span>Airbus A320</span>
+                        </div>
+                    </div>
+                    <div class="flight-schedule" id="flight-schedule">
+                        <div class="flight-segment">
+                            <span style="display:flex">
+                                <span style="margin-left:2.5%;margin-top:-2px">o</span>
+                                <span style="margin-left:2%">${departureTime}</span>
+                                <span style="margin-left:2%">${segment.origin.name} (Terminal T2)</span>
+                            </span>
+                            <div style="display:flex">
+                                <div style="display:flex;flex-direction: column;margin-left:3%">
+                                    <span style="margin-top:-10px">.</span>
+                                    <span style="margin-top:-10px">.</span>
+                                    <span style="margin-top:-10px">.</span>
+                                    <span style="margin-top:-10px">.</span>
+                                </div>
+                                <div style="margin-left:2.5%;margin-top:2%;font-weight: bold;">
+                                    <span>${duration}</span>
+                                </div>
+                            </div>
+                            <span style="display:flex">
+                                <span style="margin-left:2.5%;margin-top:-2px">o</span>
+                                <span style="margin-left:2%">${arrivalTime}</span>
+                                <span style="margin-left:2%">${segment.destination.name} (Terminal T1)</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="baggage-info">
+                        <span>Cabin Baggage: 7 Kgs (1 piece only) / Adult</span>
+                        <span>Check-In Baggage: 25 Kgs (1 piece only) / Adult</span>
+                    </div>
+                `;
+                flightSegmentsContainer.appendChild(segmentElement);
+            });
+
+            // Populate fare summary if needed
+            document.getElementById("base-fare").textContent = baseprice;
+            const policyDetailsContainer = document.getElementById("policy-details");
+            const policyElement = document.createElement("div");
+                    policyElement.className = "policy-details";
+                    policyElement.innerHTML = `
+                        <div class="policy-info">
+                            <span>${flight.origin.displayCode} - ${flight.destination.displayCode}</span>
+                            <span>Cancellation Penalty:</span>
+                        </div>
+                        <div class="penalty-chart">
+                            <span style="margin-left:10%">₹ ${extractPrice(selectedPrice)-extractPrice(selectedPrice)*0.2}</span>
+                            <span style="margin-left:15%;right:40%">₹ ${extractPrice(selectedPrice)-extractPrice(selectedPrice)*0.1}</span>
+                            <span style="margin-left:15%;right:2%">${selectedPrice}</span>
+                        </div>
+                        <div class="gradient-bar"></div>
+                        <div class="cancel-dates">
+                            <span>Now</span>
+                            <span style="margin-left:3.5%;left:6%">11 Jul 22:30</span>
+                            <span style="margin-left:10%;right:37%">15 Jul 19:30</span>
+                            <span style="margin-left:10%;right:0">${formatshortDate(flight.arrival)} ${flight.arrival.split('T')[1]}</span>
+                        </div>
+                        
+                    `;
+                    policyDetailsContainer.appendChild(policyElement);
+            })
+            // You can add more fields if you have more fare details
+        } else {
+            console.error("No flight data found in session storage.");
+        }
+    });
+
+    function calculateDuration(departureTime, arrivalTime) {
+        const depTime = new Date(departureTime);
+        const arrTime = new Date(arrivalTime);
+        const diff = arrTime - depTime;
+        const hours = Math.floor(diff / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        return `${hours}h ${minutes}m`;
+    }
+</script>
+</body>
+</html>

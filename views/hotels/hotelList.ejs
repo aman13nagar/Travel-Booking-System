@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel List</title>
+    <!-- Add your CSS stylesheets or CDN links here -->
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Hotel List</h1>
+    </header>
+    <main>
+        <h2>Available Hotels</h2>
+        <ul>
+            <% hotels.forEach(hotel => { %>
+                <li>
+                    <p><strong>Name:</strong> <%= hotel.name %></p>
+                    <p><strong>Location:</strong> <%= hotel.location %></p>
+                    <p><strong>Rating:</strong> <%= hotel.rating %></p>
+                    <p><strong>Price per Night:</strong> <%= hotel.pricePerNight %></p>
+                    <!-- Add more hotel details as needed -->
+                    <form action="/bookings" method="POST">
+                        <input type="hidden" name="hotelId" value="<%= hotel._id %>">
+                        <button type="submit">Book Now</button>
+                    </form>
+                </li>
+            <% }); %>
+        </ul>
+    </main>
+    <footer>
+        <!-- Add footer content here -->
+    </footer>
+    <!-- Add your JavaScript code here -->
+    <script src="/script.js"></script>
+</body>
+</html>

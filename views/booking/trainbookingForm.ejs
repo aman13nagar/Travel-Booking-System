@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Train Booking</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #003580;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      height:30px;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+    }
+
+    .header-content h1 {
+      margin-right: 2rem;
+      font-size: 1.5rem;
+    }
+
+    .header-content h1 span {
+      color: #ff6600;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav ul li {
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    nav ul li:hover {
+      background-color: #002244;
+    }
+
+    .login-btn {
+      background-color: #00bcd4;
+      border: none;
+      color: white;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+    .login-btn:hover {
+      background-color: #0097a7;
+    }
+
+    .search-bar {
+      background-color: #f1f1f1;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+    }
+
+    .search-bar form {
+      display: flex;
+      gap: 1rem;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .search-bar input,
+    .search-bar select,
+    .search-bar button {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      flex: 1;
+    }
+
+    .search-bar button {
+      background-color: #003580;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .search-bar button:hover {
+      background-color: #002244;
+    }
+
+    .content {
+      display: flex;
+      padding: 1rem 2rem;
+      gap: 2rem;
+    }
+
+    .filters {
+      flex: 1;
+    }
+
+    .filters div {
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .filters h3 {
+      margin-top: 0;
+    }
+
+    .results {
+      flex: 2;
+    }
+
+    .result {
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .result h2 {
+      color: #003580;
+    }
+    .fit-content{
+        display:flex;
+        gap:40%;
+    }
+    .coaches {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .coach-type-box {
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      padding: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .box h4 {
+      display: none;
+    }
+    .coach-info h3 {
+      display:flex;
+      align-items: center;
+      place-content: center;
+    }
+    .coach-type-box:hover {
+      background-color: #e0e0e0;
+    }
+
+    .coach-info {
+      display: flex;
+      overflow-x: auto;
+      max-width: 80vw;
+      gap: 5px;
+      margin-top: 20px;
+    }
+
+    .coach-info > div {
+      margin-bottom: 20px;
+    }
+
+    .box {
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-top: none;
+      background-color: #f9f9f9;
+      /* margin-top: 10px; */
+      border-bottom: none;
+    }
+
+    .seats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .seat {
+      border: 1px solid #bbb;
+      padding: 5px;
+      background-color: #e0e0e0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .seat.selected {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .seat:hover {
+      background-color: #e0e0e0;
+    }
+    .leftsidehalf {
+      display: flex;
+    }
+    .rightsidehalf {
+      display: flex;
+    }
+    .rightsideseats {
+      display: flex;
+      /* flex-direction: column; */
+      width: 100%;
+    }
+  </style>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      margin: auto;
+    }
+    .refund-section {
+      background-color: #e0f7fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .refund-section h3 {
+      margin: 0;
+      color: #00796b;
+    }
+    .refund-section input {
+      margin-left: 10px;
+    }
+    .traveller-section,
+    .irctc-section {
+      margin-bottom: 20px;
+    }
+    .traveller-section button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .traveller {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+    }
+    .traveller input[type="text"],
+    .traveller input[type="number"],
+    .traveller select {
+      padding: 5px;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      flex: 1;
+      min-width: 100px;
+    }
+    .traveller label {
+      margin-right: 10px;
+    }
+    .traveller button {
+      margin-left: 10px;
+      padding: 5px 10px;
+    }
+    .irctc-section input,
+    .irctc-section button {
+      width: 100%;
+      padding: 15px 0;
+      margin-bottom: 10px;
+    }
+    .price-section {
+      background-color: #e3f2fd;
+      padding: 20px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .price-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .price-section li {
+      margin-bottom: 5px;
+    }
+    .price-section .total {
+      font-weight: bold;
+    }
+    .price-section button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .contact-section,
+    .offers-section,
+    .preferences-section {
+      margin-bottom: 20px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .contact-section h3,
+    .offers-section h3,
+    .preferences-section h3 {
+      margin-top: 0;
+    }
+    .contact-section input,
+    .offers-section input {
+      width: 48%;
+      padding: 10px;
+      margin-bottom: 10px;
+      margin-right: 4%;
+    }
+    .offers-section input {
+      width: 70%;
+    }
+    .offers-section button {
+      width: 25%;
+      padding: 10px;
+    }
+    .preferences-section input,
+    .preferences-section select {
+      margin-right: 10px;
+    }
+    .track-container {
+      position: absolute;
+      width: 42vw;
+      margin-left: 5vw;
+      height: 50px;
+      margin-top: 10%;
+    }
+
+    .track {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background-color: #333;
+      transform: translateY(-50%);
+    }
+    .image-crop {
+      width: 100%; /* Full width */
+      height: 50%; /* Half height */
+      overflow: hidden;
+    }
+
+    .image-crop img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .train-icon {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-65%);
+      animation: moveTrain 30s linear infinite;
+    }
+
+    .train-icon img {
+      width: 40px;
+      height: 40px;
+    }
+
+    @keyframes moveTrain {
+      0% {
+        left: 0;
+      }
+      100% {
+        left: 100%;
+      }
+    }
+  </style>
+  <body>
+    <header>
+      <div class="header-content">
+        <h1>T<span style="font-size:xxx-large">B</span>S</h1>
+        <nav>
+          <ul>
+            <li>Flights</li>
+            <li>Hotels</li>
+            <li>Holiday Packages</li>
+            <li>Trains</li>
+            <li>Buses</li>
+            <li>Cabs</li>
+          </ul>
+        </nav>
+        <button class="login-btn">Login or Create Account</button>
+      </div>
+    </header>
+    <main>
+      <div class="search-bar">
+        <form>
+          <input type="text" placeholder="From City" value="NDLS, New Delhi" />
+          <input type="text" placeholder="To City" value="CNB, Kanpur" />
+          <input type="date" value="2024-06-04" />
+          <select>
+            <option value="all">All Classes</option>
+          </select>
+          <button type="submit">Search</button>
+        </form>
+      </div>
+      <div class="content">
+        <!-- <div class="filters">
+                <div class="quick-filters">
+                    <h3>Quick Filters</h3>
+                    <label><input type="checkbox"> AC</label>
+                    <label><input type="checkbox"> Available</label>
+                    <label><input type="checkbox"> Departure after 6 PM</label>
+                    <label><input type="checkbox"> Arrival before 12 PM</label>
+                </div>
+                <div class="ticket-types">
+                    <h3>Ticket Types</h3>
+                    <label><input type="checkbox"> Free Cancellation</label>
+                    <label><input type="checkbox"> Trip Guarantee</label>
+                </div>
+                <div class="journey-class-filters">
+                    <h3>Journey Class Filters</h3>
+                    <label><input type="checkbox"> AC Chair Car - CC</label>
+                    <label><input type="checkbox"> Executive Chair Car - EC</label>
+                </div>
+            </div> -->
+        <div class="results">
+          <div class="result">
+            <div style="display: flex; margin-bottom: 1%">
+              <div style="display: flex">
+                <div>
+                  <img
+                    src="/uploads/7vsi_b8gq_210929.jpg"
+                    style="height: 50px; width: 50px"
+                  />
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    position: absolute;
+                    margin-left: 55px;
+                    margin-top: 7px;
+                  "
+                >
+                  <div
+                    id="train-Name"
+                    style="font-weight: bold; font-size: large"
+                  ></div>
+                  <div id="train-Number"></div>
+                </div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  position: absolute;
+                  right: 55%;
+                "
+              >
+                <div id="departure-time"></div>
+                <div id="departure-date"></div>
+                <div id="departure-Station"></div>
+                <div class="track-container">
+                  <div class="track"></div>
+                  <div class="train-icon">
+                    <div class="image-crop">
+                      <img src="/uploads/14357062croped.jpg" alt="Train" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  id="duration"
+                  style="position: absolute; right: 30%; margin-top: 7px"
+                ></div>
+              </div>
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  position: absolute;
+                  right: 8%;
+                "
+              >
+                <div id="arrival-time"></div>
+                <div id="arrival-date"></div>
+                <div id="arrival-Station"></div>
+              </div>
+            </div>
+            <div class="train-structure" style="display: none">
+              <h3>Select a Coach Type</h3>
+              <div class="coaches"></div>
+            </div>
+            <div class="availability">
+              <!-- Coach type boxes and coach details will be displayed here -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <form class="container">
+        <div class="refund-section">
+          <h3>Get full ticket fare refund on Cancellation</h3>
+          <div>
+            <input type="radio" name="refund" id="fullRefund" checked />
+            <label for="fullRefund"
+              >Zero charges when the ticket is cancelled</label
+            >
+            <input type="radio" name="refund" id="feeOnCancellation" />
+            <label for="feeOnCancellation">Pay fees on cancellation</label>
+          </div>
+        </div>
+
+        <div class="traveller-section">
+          <h3>Add Travellers & Preferences</h3>
+          <div id="travellers">
+            <!-- Travelers will be added here -->
+          </div>
+          <button id="addTravellerBtn">Add Traveller</button>
+        </div>
+
+        <div class="irctc-section">
+          <h3>IRCTC Account Details</h3>
+          <input type="text" placeholder="Enter IRCTC Username" required />
+          <input type="password" placeholder="Enter IRCTC Password" required />
+          <button>Change Password</button>
+        </div>
+
+        <div class="contact-section">
+          <h3>Contact Information</h3>
+          <input type="email" placeholder="Enter Email Id" required />
+          <input type="tel" placeholder="Enter Mobile Number" required />
+        </div>
+
+        <div class="offers-section">
+          <h3>Offers & Discounts</h3>
+          <div>
+            <input type="radio" name="offers" id="couponCode" />
+            <label for="couponCode">Have a Coupon Code?</label>
+            <input type="text" placeholder="Enter Coupon Code" />
+            <button>Apply</button>
+          </div>
+        </div>
+
+        <div class="preferences-section">
+          <h3>Additional Preferences</h3>
+          <p>Choose one option for assured lower berth or same coach</p>
+          <input type="radio" name="preferences" id="none" checked />
+          <label for="none">None</label>
+          <input type="radio" name="preferences" id="sameCoach" />
+          <label for="sameCoach"
+            >Book, only if all berths are allotted in same coach</label
+          >
+          <div>
+            <input type="checkbox" id="confirmBerths" />
+            <label for="confirmBerths"
+              >Book only if confirm berths are allotted.</label
+            >
+          </div>
+          <div>
+            <input type="checkbox" id="autoUpgrade" />
+            <label for="autoUpgrade"
+              >Consider for auto-upgradation (optional)</label
+            >
+          </div>
+        </div>
+        <div class="price-section">
+          <ul>
+            <li>Base fare per adult: ₹841</li>
+            <li>Catering charge: ₹142</li>
+            <li>Tax: ₹47</li>
+            <li>Reservation charge: ₹40</li>
+            <li>Superfast charge: ₹45</li>
+            <li class="total">Total Price per adult: ₹1115</li>
+          </ul>
+          <button>Pay & Book Now</button>
+        </div>
+      </form>
+    </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const addTravellerBtn = document.getElementById("addTravellerBtn");
+        const travellersDiv = document.getElementById("travellers");
+        const trainStructure = document.querySelector(
+          ".train-structure .coaches"
+        );
+        const availabilityContainer = document.querySelector(".availability");
+        const coachInfoMap = new Map(); // To store coach information by coach type
+        const selectedSeats = new Set(); // To store the selected seats
+        let travellerCount = 0;
+        const travellerSeatPreferences = new Map(); // To store seat preferences of travelers
+
+        addTravellerBtn.addEventListener("click", addTraveller);
+
+        function addTraveller() {
+          const travellerDiv = document.createElement("div");
+          travellerDiv.classList.add("traveller");
+
+          const travellerInfoDiv = document.createElement("div");
+          travellerInfoDiv.classList.add("traveller-info");
+
+          const nameInput = document.createElement("input");
+          nameInput.type = "text";
+          nameInput.placeholder = "Name";
+
+          const ageInput = document.createElement("input");
+          ageInput.type = "number";
+          ageInput.placeholder = "Age";
+
+          const maleInput = document.createElement("input");
+          maleInput.type = "radio";
+          maleInput.name = `gender${travellerCount}`;
+          maleInput.value = "Male";
+          const maleLabel = document.createElement("label");
+          maleLabel.innerText = "Male";
+          maleLabel.appendChild(maleInput);
+
+          const femaleInput = document.createElement("input");
+          femaleInput.type = "radio";
+          femaleInput.name = `gender${travellerCount}`;
+          femaleInput.value = "Female";
+          const femaleLabel = document.createElement("label");
+          femaleLabel.innerText = "Female";
+          femaleLabel.appendChild(femaleInput);
+
+          const nationalitySelect = document.createElement("select");
+          const nationalities = ["Indian", "American", "British", "Australian"];
+          nationalities.forEach((nation) => {
+            const option = document.createElement("option");
+            option.value = nation;
+            option.innerText = nation;
+            nationalitySelect.appendChild(option);
+          });
+
+          const berthSelect = document.createElement("select");
+          const berths = [
+            "Lower",
+            "Middle",
+            "Upper",
+            "Side Lower",
+            "Side Upper",
+          ];
+          berths.forEach((berth) => {
+            const option = document.createElement("option");
+            option.value = berth;
+            option.innerText = berth;
+            berthSelect.appendChild(option);
+          });
+
+          const mealSelect = document.createElement("select");
+          const meals = ["Veg", "Non-Veg", "Jain", "None"];
+          meals.forEach((meal) => {
+            const option = document.createElement("option");
+            option.value = meal;
+            option.innerText = meal;
+            mealSelect.appendChild(option);
+          });
+
+          const updateBtn = document.createElement("button");
+          updateBtn.innerText = "Update";
+          updateBtn.addEventListener("click", () =>
+            updateTraveller(
+              travellerDiv,
+              nameInput,
+              ageInput,
+              maleInput,
+              femaleInput,
+              nationalitySelect,
+              berthSelect,
+              mealSelect
+            )
+          );
+
+          const removeBtn = document.createElement("button");
+          removeBtn.innerText = "Remove";
+          removeBtn.addEventListener("click", () => {
+            removeTraveller(travellerDiv);
+          });
+
+          travellerInfoDiv.appendChild(nameInput);
+          travellerInfoDiv.appendChild(ageInput);
+          travellerInfoDiv.appendChild(maleLabel);
+          travellerInfoDiv.appendChild(femaleLabel);
+          travellerInfoDiv.appendChild(nationalitySelect);
+          travellerInfoDiv.appendChild(berthSelect);
+          travellerInfoDiv.appendChild(mealSelect);
+          travellerInfoDiv.appendChild(updateBtn);
+          travellerInfoDiv.appendChild(removeBtn);
+
+          const toggleBtn = document.createElement("button");
+          toggleBtn.innerText = `Traveller ${travellerCount + 1}`;
+          toggleBtn.addEventListener("click", () =>
+            toggleTravellerInfo(travellerInfoDiv)
+          );
+
+          travellerDiv.appendChild(toggleBtn);
+          travellerDiv.appendChild(travellerInfoDiv);
+
+          travellersDiv.appendChild(travellerDiv);
+
+          toggleTravellerInfo(travellerInfoDiv); // Hide the form initially
+
+          travellerSeatPreferences.set(travellerCount, berthSelect.value); // Store seat preference
+
+          travellerCount++;
+        }
+
+        function updateTraveller(
+          travellerDiv,
+          nameInput,
+          ageInput,
+          maleInput,
+          femaleInput,
+          nationalitySelect,
+          berthSelect,
+          mealSelect
+        ) {
+          const gender = maleInput.checked ? "Male" : "Female";
+          alert(
+            `Traveller updated: Name - ${nameInput.value}, Age - ${ageInput.value}, Gender - ${gender}, Nationality - ${nationalitySelect.value}, Berth - ${berthSelect.value}, Meal - ${mealSelect.value}`
+          );
+          const travellerIndex = Array.from(
+            travellerDiv.parentNode.children
+          ).indexOf(travellerDiv);
+          travellerSeatPreferences.set(travellerIndex, berthSelect.value); // Update seat preference
+        }
+
+        function removeTraveller(travellerDiv) {
+          const travellerIndex = Array.from(
+            travellerDiv.parentNode.children
+          ).indexOf(travellerDiv);
+          travellerSeatPreferences.delete(travellerIndex); // Remove seat preference
+          travellersDiv.removeChild(travellerDiv);
+          travellerCount--;
+          reLabelTravellers();
+        }
+
+        function reLabelTravellers() {
+          const travellers = document.querySelectorAll(".traveller");
+          travellers.forEach((traveller, index) => {
+            const toggleBtn = traveller.querySelector("button");
+            toggleBtn.innerText = `Traveller ${index + 1}`;
+          });
+        }
+
+        function toggleTravellerInfo(travellerInfoDiv) {
+          travellerInfoDiv.style.display =
+            travellerInfoDiv.style.display === "none" ? "block" : "none";
+        }
+
+        // Simulating retrieval of train data from session storage
+        const trainData = JSON.parse(sessionStorage.getItem("selectedTrain"));
+
+        if (trainData && trainData.coaches) {
+          // Extract unique coach types
+          const uniqueCoachTypes = [
+            ...new Set(trainData.coaches.map((coach) => coach.coachType)),
+          ];
+
+          // Create coach type boxes
+          uniqueCoachTypes.forEach((coachType) => {
+            const coach = trainData.coaches.find(
+              (coach) => coach.coachType === coachType
+            );
+            const boxElement = document.createElement("div");
+            boxElement.className = "coach-type-box";
+            const coachtypecontent=document.createElement("div");
+            const pricecontent=document.createElement("div");
+            coachtypecontent.className="coach-type-content";
+            pricecontent.className="price-content";
+            coachtypecontent.textContent=`${coachType}`;
+            pricecontent.textContent=`₹${coach.price}`;
+            const availablecontent=document.createElement("span");
+            availablecontent.className="available-seats";
+            availablecontent.textContent=`Available: 181`;
+            const content=document.createElement("div");
+            content.className="fit-content";
+            content.appendChild(coachtypecontent);
+            content.appendChild(pricecontent);
+            boxElement.appendChild(content);
+            boxElement.appendChild(availablecontent);
+            boxElement.addEventListener("click", () => {
+              toggleCoachInfo(coachType);
+            });
+            trainStructure.appendChild(boxElement);
+          });
+          document.querySelector(".train-structure").style.display = "block";
+        } else {
+          console.error("No train data found in session storage.");
+        }
+
+        function toggleCoachInfo(coachType) {
+          if (coachInfoMap.has(coachType)) {
+            // Coach information is already displayed, so remove it
+            const coachInfo = coachInfoMap.get(coachType);
+            coachInfo.remove();
+            coachInfoMap.delete(coachType);
+          } else {
+            // Coach information is not displayed, so display it
+            const coachInfo = displayCoachInfo(coachType);
+            coachInfoMap.set(coachType, coachInfo);
+          }
+        }
+
+        function displayCoachInfo(coachType) {
+          availabilityContainer.innerHTML = "";
+          const coachesOfType = trainData.coaches.filter(
+            (coach) => coach.coachType === coachType
+          );
+
+          const coachInfo = document.createElement("div");
+          coachInfo.className = "coach-info";
+
+          coachesOfType.forEach((coach) => {
+            const coachDetails = document.createElement("div");
+            coachDetails.innerHTML = `
+                <h3>${coach.coachName}</h3>
+            `;
+            let seatNumber = 1; // Initialize seat number for each coach
+
+            coach.boxes.forEach((box) => {
+              const boxElement = document.createElement("div");
+              boxElement.className = "box";
+              boxElement.innerHTML = `<h4>Box ${box.boxNumber}</h4>`;
+              const seatsContainer = document.createElement("div");
+              const rightsideseatsContainer = document.createElement("div");
+              const leftsideseatsContainer = document.createElement("div");
+              const leftsidehalfseatsContainer = document.createElement("div");
+              const leftsideotherhalfseatsContainer =
+                document.createElement("div");
+              rightsideseatsContainer.className = "rightsideseats";
+              leftsideseatsContainer.className = "leftsideseats";
+              leftsidehalfseatsContainer.className = "leftsidehalf";
+              leftsideotherhalfseatsContainer.className = "rightsidehalf";
+              seatsContainer.className = "seats";
+              let count = 0;
+              box.seats.forEach((seat) => {
+                const seatElement = document.createElement("div");
+                seatElement.className = "seat";
+                seatElement.textContent = seatNumber++;
+                seatElement.dataset.seatType = seat.seatType; // Store seat type as data attribute
+                seatElement.title = seat.seatType; // Set title attribute for tooltip
+                seatElement.addEventListener("click", () => {
+                  toggleSeatSelection(seatElement);
+                });
+                if (
+                  seat.seatType == "Side Lower" ||
+                  seat.seatType == "Side Upper"
+                ) {
+                  rightsideseatsContainer.appendChild(seatElement);
+                } else {
+                  count++;
+                  if (count < box.seats.length / 2)
+                    leftsidehalfseatsContainer.appendChild(seatElement);
+                  else leftsideotherhalfseatsContainer.appendChild(seatElement);
+                }
+              });
+              leftsideseatsContainer.appendChild(leftsidehalfseatsContainer);
+              leftsideseatsContainer.appendChild(
+                leftsideotherhalfseatsContainer
+              );
+              seatsContainer.appendChild(leftsideseatsContainer);
+              seatsContainer.appendChild(rightsideseatsContainer);
+              boxElement.appendChild(seatsContainer);
+              coachDetails.appendChild(boxElement);
+            });
+
+            coachInfo.appendChild(coachDetails);
+          });
+
+          availabilityContainer.appendChild(coachInfo);
+          return coachInfo;
+        }
+
+        function toggleSeatSelection(seatElement) {
+          const numberOfTravellers =
+            document.querySelectorAll(".traveller").length;
+          const seatType = seatElement.dataset.seatType;
+
+          if (selectedSeats.has(seatElement)) {
+            // Seat is already selected, so deselect it
+            selectedSeats.delete(seatElement);
+            seatElement.classList.remove("selected");
+          } else {
+            // Seat is not selected, so select it
+            if (selectedSeats.size < numberOfTravellers) {
+              // Check if the seat type matches any traveller's preference
+              const matchesPreference = Array.from(
+                travellerSeatPreferences.values()
+              ).some((preference) => preference === seatType);
+
+              if (matchesPreference) {
+                selectedSeats.add(seatElement);
+                seatElement.classList.add("selected");
+              } else {
+                alert(
+                  "You cannot select this seat type. It doesn't match any traveller's preference."
+                );
+              }
+            } else {
+              alert(
+                "You cannot select more seats than the number of travellers."
+              );
+            }
+          }
+
+          // Display seat information for all selected seats
+          const selectedSeatInfo = Array.from(selectedSeats).map((seat) => {
+            return `Seat Number: ${seat.textContent}, Seat Type: ${seat.dataset.seatType}`;
+          });
+          console.log(selectedSeatInfo);
+
+          // You can now use the 'selectedSeats' set to get the selected seat information for booking confirmation.
+        }
+      });
+      function bookTickets() {
+        const travellers = document.querySelectorAll(".traveller");
+        const travellerDetails = [];
+
+        travellers.forEach((traveller, index) => {
+          const name = traveller.querySelector('input[type="text"]').value;
+          const age = traveller.querySelector('input[type="number"]').value;
+          const gender = traveller.querySelector(
+            'input[type="radio"]:checked'
+          ).value;
+          const nationality = traveller.querySelector("select").value;
+          const berth = travellerSeatPreferences.get(index);
+          const meal = traveller.querySelector("select").value;
+
+          travellerDetails.push({
+            name,
+            age,
+            gender,
+            nationality,
+            berth,
+            meal,
+          });
+        });
+
+        const selectedSeatInfo = Array.from(selectedSeats).map((seat) => {
+          return {
+            seatNumber: seat.textContent,
+            seatType: seat.dataset.seatType,
+          };
+        });
+
+        const bookingPayload = {
+          travellers: travellerDetails,
+          seats: selectedSeatInfo,
+          train: trainData.trainName, // Assuming train name is available in trainData
+        };
+
+        console.log("Booking Payload:", bookingPayload);
+
+        // Make a POST request to the server to book tickets
+        fetch("/bookTickets", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bookingPayload),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alert("Tickets booked successfully!");
+            } else {
+              alert("Failed to book tickets. Please try again.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error booking tickets:", error);
+            alert("An error occurred while booking tickets. Please try again.");
+          });
+      }
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const trainData = sessionStorage.getItem("selectedTrain");
+        if (trainData) {
+          const train = JSON.parse(trainData);
+          console.log(train); // You can now use this train data to populate your form
+          // Example: Populate the form fields
+          document.getElementById("train-Name").textContent = train.train_name;
+          document.getElementById("train-Number").textContent =
+            train.train_number;
+          document.getElementById("departure-Station").textContent =
+            train.from;
+          document.getElementById("arrival-Station").textContent =
+            train.to;
+          document.getElementById("departure-time").textContent = train.train_date
+          document.getElementById("departure-date").textContent = train.from_std
+          //document.getElementById("arrival-time").textContent = train.
+          document.getElementById("arrival-date").textContent =train.to_std;
+          document.getElementById("duration").textContent = train.duration;
+        } else {
+          console.error("No train data found in session storage.");
+        }
+      });
+
+      function calculateDuration(departureTime, arrivalTime) {
+        const depTime = new Date(departureTime);
+        const arrTime = new Date(arrivalTime);
+        const diff = arrTime - depTime;
+        const hours = Math.floor(diff / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        return `${hours}h ${minutes}m`;
+      }
+    </script>
+  </body>
+</html>

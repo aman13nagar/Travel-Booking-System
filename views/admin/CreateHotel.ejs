@@ -1,0 +1,89 @@
+<%- include('../layouts/main') %>
+<div class="container">
+    <div class="hotel-container">
+        <h2>Create New Hotel</h2>
+        <form action="/hotels/create" method="POST" class="hotel-form">
+            <div class="form-group">
+                <label for="name">Hotel Name</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" name="location" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="pricePerNight">Price Per Night</label>
+                <input type="number" name="pricePerNight" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea name="description" class="form-control" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="amenities">Amenities</label>
+                <input type="text" name="amenities" class="form-control" required placeholder="Comma separated values">
+            </div>
+            <div class="form-group">
+                <label for="rating">Rating</label>
+                <input type="number" name="rating" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Create Hotel</button>
+        </form>
+    </div>
+</div>
+
+<style>
+  /* Custom styles for the hotel creation page */
+  .hotel-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fafafa;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  .hotel-form .form-group {
+    margin-bottom: 20px;
+  }
+  .hotel-form label {
+    font-weight: bold;
+    color: #333;
+  }
+  .hotel-form input[type="text"],
+  .hotel-form input[type="number"],
+  .hotel-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  .hotel-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+  }
+  .hotel-form button:hover {
+    background-color: #218838;
+  }
+  .hotel-form p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+  }
+  .hotel-form p a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .hotel-form p a:hover {
+    text-decoration: underline;
+  }
+</style>

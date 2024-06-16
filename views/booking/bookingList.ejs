@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking List</title>
+    <!-- Add your CSS stylesheets or CDN links here -->
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Booking List</h1>
+    </header>
+    <main>
+        <h2>Upcoming Bookings</h2>
+        <ul>
+            <% upcomingBookings.forEach(booking => { %>
+                <li>
+                    Destination: <%= booking.destination %><br>
+                    Check-in Date: <%= booking.checkIn %><br>
+                    Check-out Date: <%= booking.checkOut %><br>
+                    Number of Guests: <%= booking.numGuests %><br>
+                    Booking Type: <%= booking.bookingType %>
+                </li>
+            <% }); %>
+        </ul>
+
+        <h2>Past Bookings</h2>
+        <ul>
+            <% pastBookings.forEach(booking => { %>
+                <li>
+                    Destination: <%= booking.destination %><br>
+                    Check-in Date: <%= booking.checkIn %><br>
+                    Check-out Date: <%= booking.checkOut %><br>
+                    Number of Guests: <%= booking.numGuests %><br>
+                    Booking Type: <%= booking.bookingType %>
+                </li>
+            <% }); %>
+        </ul>
+    </main>
+    <footer>
+        <!-- Add footer content here -->
+    </footer>
+    <!-- Add your JavaScript code here -->
+    <script src="/script.js"></script>
+</body>
+</html>

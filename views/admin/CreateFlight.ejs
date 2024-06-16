@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Train</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Create New Flight</h2>
+        <form id="flightForm">
+            <div class="form-group">
+                <label for="airline">Airline</label>
+                <input type="text" name="airline" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="flightNumber">Flight Number</label>
+                <input type="text" name="flightNumber" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="departureAirport">Departure Airport</label>
+                <input type="text" name="departureAirport" class="form-control flight-input" required>
+                <ul class="flight-list"></ul>
+            </div>
+            <div class="form-group">
+                <label for="arrivalAirport">Arrival Airport</label>
+                <input type="text" name="arrivalAirport" class="form-control flight-input" required>
+                <ul class="flight-list"></ul>
+            </div>
+            <div class="form-group">
+                <label for="departureDate">Departure Date</label>
+                <input type="datetime-local" name="departureDate" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="arrivalDate">Arrival Date</label>
+                <input type="datetime-local" name="arrivalDate" class="form-control" required>
+            </div>
+            <div id="seatsSection">
+                <h4>Seats</h4>
+                <div class="form-group">
+                    <button type="button" class="btn btn-secondary" id="addSeatBtn">Add Seat</button>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Create Flight</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+    // Function to populate the flight list based on user input
+    function populateFlightList(input, list) {
+        list.empty();
+        // Here, you would fetch flight data based on the input value
+        // For demonstration, I'm just showing a static list of airports
+        const airports=JSON.parse('<%-JSON.stringify(airports)%>')
+        const inputValue = input.val().toLowerCase();
+        const filteredAirports = airports.filter(airport => airport.toLowerCase().includes(inputValue));
+        filteredAirports.slice(0, 10).forEach(airport => {
+            const listItem = $('<li>').text(airport);
+            list.append(listItem);
+        });
+        if (filteredAirports.length > 0) {
+            list.show();
+        } else {
+            list.hide();
+        }
+    }
+
+    // Event listeners for input fields
+    $('.flight-input').on('input', function() {
+        const input = $(this);
+        const list = input.next('.flight-list');
+        populateFlightList(input, list);
+    });
+
+    // Event listener for selecting an airport from the list
+    $('.flight-list').on('click', 'li', function() {
+        const listItem = $(this);
+        const input = listItem.parent().prev('.flight-input');
+        input.val(listItem.text());
+        listItem.parent().hide();
+    });
+
+    // Event listener to hide the flight list when clicking outside of the input fields
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('.flight-input').length) {
+            $('.flight-list').hide();
+        }
+    });
+});
+        document.addEventListener('DOMContentLoaded', () => {
+                const seatsSection = document.getElementById('seatsSection');
+                const addSeatBtn = document.getElementById('addSeatBtn');
+                let seatIndex = 0;
+    
+                addSeatBtn.addEventListener('click', () => {
+                    seatIndex++;
+                    const seatDiv = document.createElement('div');
+                    seatDiv.className = 'seat';
+                    seatDiv.innerHTML = `
+                        <h5>Seat ${seatIndex}</h5>
+                        <div class="form-group">
+                            <label for="seatNumber${seatIndex}">Seat Number</label>
+                            <input type="number" class="form-control" id="seatNumber${seatIndex}" name="seats[${seatIndex}][seatNumber]" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="seatType${seatIndex}">Seat Type</label>
+                            <select class="form-control" id="seatType${seatIndex}" name="seats[${seatIndex}][seatType]" required>
+                                <option value="Economy">Economy Class</option>
+                                <option value="Business">Business Class</option>
+                                <option value="First Class">First Class</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="price${seatIndex}">Price</label>
+                            <input type="number" class="form-control" id="price${seatIndex}" name="seats[${seatIndex}][price]" required>
+                        </div>
+                        <button type="button" class="btn btn-danger removeSeatBtn">Remove Seat</button>
+                        <hr>
+                    `;
+                    seatsSection.appendChild(seatDiv);
+    
+                    const removeSeatBtns = document.querySelectorAll('.removeSeatBtn');
+                    removeSeatBtns.forEach((btn, index) => {
+                        btn.addEventListener('click', () => {
+                            btn.parentElement.remove();
+                        });
+                    });
+                });
+    
+                document.getElementById('flightForm').addEventListener('submit', async (event) => {
+                    event.preventDefault();
+                    
+                    const formData = new FormData(event.target);
+                    const formProps = Object.fromEntries(formData);
+                    formProps.seats = [];
+                    for (let i = 1; i <= seatIndex; i++) {
+                        if (document.getElementById(`seatNumber${i}`)) {
+                            formProps.seats.push({
+                                seatNumber: document.getElementById(`seatNumber${i}`).value,
+                                seatType: document.getElementById(`seatType${i}`).value,
+                                price: document.getElementById(`price${i}`).value,
+                            });
+                        }
+                    }
+    
+                    try {
+                        const response = await fetch('/flights/createFlight', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(formProps),
+                        });
+                        const result = await response.json();
+                        console.log(result);
+                        if (response.ok) {
+                            alert(result.message);
+                        } else {
+                            alert(result.error);
+                        }
+                    } catch (error) {
+                        console.log('Error:', error);
+                    }
+                });
+            });
+    </script>
+    <style>
+        body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    margin-top: 50px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 4px;
+}
+
+#addSeat {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+#addSeat:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+#seatsContainer h4 {
+    margin-top: 20px;
+    color: #333;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+.flight-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.flight-list li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.flight-list li:hover {
+    background-color: #f4f4f4;
+}
+    </style>
+</body>
+</html>

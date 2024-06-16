@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Train</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Create Train</h2>
+        <form id="trainForm">
+            <div class="form-group">
+                <label for="trainNumber">Train Number</label>
+                <input type="text" class="form-control" id="trainNumber" name="trainNumber" required>
+            </div>
+            <div class="form-group">
+                <label for="trainName">Train Name</label>
+                <input type="text" class="form-control" id="trainName" name="trainName" required>
+            </div>
+            <div class="form-group">
+                <label for="departureStation">Departure Station</label>
+                <input type="text" class="form-control" id="departureStation" name="departureStation" required>
+            </div>
+            <div class="form-group">
+                <label for="arrivalStation">Arrival Station</label>
+                <input type="text" class="form-control" id="arrivalStation" name="arrivalStation" required>
+            </div>
+            <div class="form-group">
+                <label for="departureTime">Departure Time</label>
+                <input type="datetime-local" class="form-control" id="departureTime" name="departureTime" required>
+            </div>
+            <div class="form-group">
+                <label for="arrivalTime">Arrival Time</label>
+                <input type="datetime-local" class="form-control" id="arrivalTime" name="arrivalTime" required>
+            </div>
+            <div id="coachesSection">
+                <h4>Coaches</h4>
+                <div class="form-group">
+                    <button type="button" class="btn btn-secondary" id="addCoachBtn">Add Coach</button>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Train</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const coachesSection = document.getElementById('coachesSection');
+            const addCoachBtn = document.getElementById('addCoachBtn');
+            let coachIndex = 0;
+    
+            addCoachBtn.addEventListener('click', () => {
+                coachIndex++;
+                const coachDiv = document.createElement('div');
+                coachDiv.className = 'coach-container';
+                coachDiv.innerHTML = `
+                    <h5>Coach ${coachIndex}</h5>
+                    <div class="form-group">
+                        <label for="coachName${coachIndex}">Coach Name</label>
+                        <input type="text" class="form-control" id="coachName${coachIndex}" name="coaches[${coachIndex}][coachName]" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="coachType${coachIndex}">Coach Type</label>
+                        <select class="form-control" id="coachType${coachIndex}" name="coaches[${coachIndex}][coachType]" required>
+                            <option value="Sleeper Class">Sleeper Class</option>
+                            <option value="Third AC">Third AC</option>
+                            <option value="Second AC">Second AC</option>
+                            <option value="First AC">First AC</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="price${coachIndex}">Price</label>
+                        <input type="number" class="form-control" id="price${coachIndex}" name="coaches[${coachIndex}][price]" required>
+                    </div>
+                    <div id="boxesSection${coachIndex}">
+                        <h6>Boxes</h6>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-secondary addBoxBtn" data-coach-index="${coachIndex}">Add Box</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-danger removeCoachBtn">Remove Coach</button>
+                    <hr>
+                `;
+                coachesSection.appendChild(coachDiv);
+    
+                // Attach event listeners for adding and removing boxes and coaches
+                coachDiv.querySelector('.removeCoachBtn').addEventListener('click', () => {
+                    coachDiv.remove();
+                });
+    
+                coachDiv.querySelector('.addBoxBtn').addEventListener('click', (event) => {
+                    const coachIndex = event.target.getAttribute('data-coach-index');
+                    addBox(coachIndex);
+                });
+            });
+    
+            const addBox = (coachIndex) => {
+                const boxesSection = document.getElementById(`boxesSection${coachIndex}`);
+                const boxDiv = document.createElement('div');
+                boxDiv.className = 'box-container';
+                const boxIndex = boxesSection.querySelectorAll('.box-container').length + 1;
+                boxDiv.innerHTML = `
+                    <h6>Box ${boxIndex}</h6>
+                    <div class="form-group">
+                        <label for="numberOfSeats${coachIndex}${boxIndex}">Number of Seats</label>
+                        <input type="number" class="form-control numberOfSeats" id="numberOfSeats${coachIndex}${boxIndex}" data-coach-index="${coachIndex}" data-box-index="${boxIndex}" min="1" max="10" required>
+                    </div>
+                    <div class="box" id="box${coachIndex}${boxIndex}"></div>
+                    <button type="button" class="btn btn-danger removeBoxBtn">Remove Box</button>
+                    <hr>
+                `;
+                boxesSection.appendChild(boxDiv);
+    
+                boxDiv.querySelector('.removeBoxBtn').addEventListener('click', () => {
+                    boxDiv.remove();
+                });
+    
+                boxDiv.querySelector('.numberOfSeats').addEventListener('input', (event) => {
+                    const coachIndex = event.target.getAttribute('data-coach-index');
+                    const boxIndex = event.target.getAttribute('data-box-index');
+                    const numberOfSeats = event.target.value;
+                    updateBoxSeats(coachIndex, boxIndex, numberOfSeats);
+                });
+            };
+    
+            const updateBoxSeats = (coachIndex, boxIndex, numberOfSeats) => {
+                const box = document.getElementById(`box${coachIndex}${boxIndex}`);
+                box.innerHTML = ''; // Clear previous seats
+    
+                for (let i = 1; i <= numberOfSeats; i++) {
+                    const seatDiv = document.createElement('div');
+                    seatDiv.className = 'seat';
+                    seatDiv.innerHTML = `
+                        <span>Seat ${i}</span>
+                        <select class="form-control seat-type-select" name="coaches[${coachIndex}][boxes][${boxIndex}][seats][${i}][seatType]" required>
+                            <option value="Lower">Lower</option>
+                            <option value="Middle">Middle</option>
+                            <option value="Upper">Upper</option>
+                            <option value="Side Lower">Side Lower</option>
+                            <option value="Side Upper">Side Upper</option>
+                        </select>
+                    `;
+                    seatDiv.setAttribute('data-coach-index', coachIndex);
+                    seatDiv.setAttribute('data-box-index', boxIndex);
+                    seatDiv.setAttribute('data-seat-number', i);
+                    box.appendChild(seatDiv);
+                }
+            };
+    
+            document.getElementById('trainForm').addEventListener('submit', async (event) => {
+                event.preventDefault();
+    
+                const formData = new FormData(event.target);
+                const formProps = Object.fromEntries(formData);
+                formProps.coaches = [];
+                let SeatValue=1;
+                for (let i = 1; i <= coachIndex; i++) {
+                    const coachName = document.getElementById(`coachName${i}`);
+                    const coachType = document.getElementById(`coachType${i}`);
+                    const price = document.getElementById(`price${i}`);
+                    const boxesSection = document.getElementById(`boxesSection${i}`);
+    
+                    if (coachName && coachType && price && boxesSection) {
+                        const boxes = [];
+                        boxesSection.querySelectorAll('.box-container').forEach((boxContainer, boxIndex) => {
+                            const numberOfSeats = boxContainer.querySelector('.numberOfSeats').value;
+                            const seats = [];
+    
+                            for (let seatIndex = 1; seatIndex <= numberOfSeats; seatIndex++) {
+                                const seatTypeSelect = boxContainer.querySelector(`select[name="coaches[${i}][boxes][${boxIndex+1}][seats][${seatIndex}][seatType]"]`);
+                                seats.push({
+                                    seatNumber: `Seat ${seatIndex}`,
+                                    seatType: seatTypeSelect.value,
+                                });
+                            }
+    
+                            boxes.push({
+                                boxNumber: boxIndex + 1,
+                                seats: seats,
+                            });
+                        });
+    
+                        formProps.coaches.push({
+                            coachName: coachName.value,
+                            coachType: coachType.value,
+                            price: price.value,
+                            boxes: boxes,
+                        });
+                    }
+                }
+    
+                try {
+                    const response = await fetch('/trains/create', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formProps),
+                    });
+                    const result = await response.json();
+                    console.log(result);
+                    if (response.ok) {
+                        alert(result.message);
+                    } else {
+                        alert(result.error);
+                    }
+                } catch (error) {
+                    console.log('Error:', error);
+                }
+            });
+        });
+    </script>
+    <style>
+        body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    margin-top: 50px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group label {
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 4px;
+}
+
+#addCoach {
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+#addCoach:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+#coachesContainer h4 {
+    margin-top: 20px;
+    color: #333;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+</style>
+<style>
+    .coach-container {
+        margin-bottom: 20px;
+    }
+    .box {
+        display: flex;
+        flex-wrap: wrap;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-top: 10px;
+    }
+    .seat {
+        width: 20%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: center;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 5px;
+    }
+    .seat-type-select {
+        margin-top: 5px;
+    }
+    .seat.selected {
+        background-color: #007bff;
+        color: white;
+    }
+    .side-seat {
+        width: 40%;
+    }
+</style>
+</body>
+</html>

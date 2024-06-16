@@ -1,0 +1,2864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Travel Booking System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <style>
+        /* public/styles.css */
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .header-background {
+            background-image: url('/uploads/');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 70px 0;
+        }
+
+        .header-background .display-4 {
+            font-weight: 700;
+        }
+
+        .card {
+            height: 400px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .modal-content {
+            border-radius: 0.5rem;
+        }
+
+        .modal-header {
+            border-bottom: none;
+            background: #007bff;
+            color: white;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .close {
+            color: white;
+            opacity: 1;
+        }
+
+        .close:hover {
+            color: white;
+            opacity: 0.75;
+        }
+        /* Customize modal header */
+.modal-header {
+    border-bottom: none;
+}
+
+/* Customize modal body */
+.modal-body {
+    padding: 20px;
+}
+
+/* Style carousel */
+.carousel {
+    height: 100%;
+    margin-top:2%;
+}
+
+/* Style carousel caption */
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    color: #fff;
+}
+.carousel-item img {
+    width: 100%;
+    height: 400px; /* Adjust the height as needed */
+    object-fit: cover;
+}
+.carousel-inner{
+    border-radius: 5%;
+}
+.carousel-indicators li {
+    box-sizing: content-box;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    margin-right: 3px;
+    margin-left: 3px;
+    text-indent: -999px;
+    cursor: pointer;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    opacity: .5;
+    transition: opacity .6s ease;
+}
+/* Style buttons */
+.carousel-control-prev,
+.carousel-control-next {
+    display: none;
+}
+.btn-lg {
+    padding: 15px 30px;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Add margin between buttons */
+.btn-lg:not(:last-child) {
+    margin-right: 10px;
+}
+
+        .btn-primary, .btn-success {
+            padding: 0.75rem 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-background {
+                padding: 30px 0;
+            }
+        }
+        header {
+    background-color: #4CAF50; /* Green background */
+    padding: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling the nav bar */
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Styling the list items */
+nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styling each list item */
+nav ul li {
+    margin: 0 15px;
+}
+
+/* Styling the links */
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: 'Arial', sans-serif;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+.modal.show .modal-dialog {
+    transform: none;
+    max-width: 1100px;
+}
+/* Hover effects for links */
+nav ul li a:hover {
+    background-color: #45a049; /* Slightly darker green */
+    transform: scale(1.1); /* Slightly larger on hover */
+}
+.nav-item a{
+    color:black
+}
+/* Add responsiveness */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+    }
+    
+    nav ul li {
+        margin: 10px 0;
+    }
+}
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .booking-section {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: -50px;
+        }
+        .booking-section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .booking-section .form-group {
+            margin-bottom: 20px;
+        }
+        .booking-section .form-control {
+            border-radius: 0;
+        }
+        .booking-section .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 10px 20px;
+        }
+        .tab-content {
+            margin-top: 20px;
+        }
+    footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      bottom: 0;
+      width: 100%;
+    }
+    .station-list {
+        list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.station-list li {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.station-list li:hover {
+    background-color: #f0f0f0;
+}
+.flight-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    width: calc(100% - 2px); /* Adjust for border width */
+}
+
+.flight-list li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.flight-list li:hover {
+    background-color: #f4f4f4;
+}
+.car-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    width: calc(100% - 2px); /* Adjust for border width */
+}
+
+.car-list li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.car-list li:hover {
+    background-color: #f4f4f4;
+}
+.bus-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    width: calc(100% - 2px); /* Adjust for border width */
+}
+
+.bus-list li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.bus-list li:hover {
+    background-color: #f4f4f4;
+}
+.rapido-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    width: calc(100% - 2px); /* Adjust for border width */
+}
+
+.rapido-list li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.rapido-list li:hover {
+    background-color: #f4f4f4;
+}
+.hotel-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    max-height: 200px;
+    overflow-y: auto;
+    width: calc(100% - 2px); /* Adjust for border width */
+}
+
+.hotel-list li {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.hotel-list li:hover {
+    background-color: #f4f4f4;
+}
+    .flight-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 3px solid #ddd;
+        padding: 10px 0;
+    }
+    .flight-details {
+        display: flex;
+        gap: 20px;
+        width:70%;
+        align-items: center;
+    }
+    .flight-details img {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+    }
+    .flight-prices {
+        display: flex;
+        gap: 20px;
+        width:25%;
+    }
+    .button {
+        padding: 10px 20px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .button:hover {
+        background: #0056b3;
+    }
+    .header-dates {
+        display: flex;
+        overflow-x:scroll;
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+        white-space: nowrap;
+        height:10%;
+        -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    }
+    .header-dates::-webkit-scrollbar { /* WebKit */
+        width: 0;
+        height: 0;
+    }
+    .date-button {
+        cursor: pointer;
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        background: #007bff;
+        color: white;
+        border-radius: 5px;
+    }
+    .date-button:hover {
+        background: #0056b3;
+    }
+    .filter-section {
+        width: 20%;
+        border-right: 1px solid #ddd;
+        padding: 10px;
+    }
+    .content-section {
+        width: 80%;
+        padding: 10px;
+    }
+    .modal-body {
+        display: flex;
+        flex-direction:column;
+    }
+    .travelduration{
+        width:100%;
+        display:flex;
+    }
+    .search-form-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.addNewSec {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.addMoreTxt {
+    font-size: 14px;
+    color: #007bff;
+    margin-right: 10px;
+}
+
+.newTagImg {
+    background-color: #28a745;
+    color: #fff;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 10px;
+}
+
+.primaryBtn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.primaryBtn:hover {
+    background-color: #0056b3;
+}
+
+.makeFlex {
+    display: flex;
+    justify-content: center;
+}
+
+.vrtlCenter {
+    align-items: center;
+}
+
+.font20 {
+    font-size: 20px;
+}
+
+.font24 {
+    font-size: 24px;
+}
+
+.font30 {
+    font-size: 30px;
+}
+
+.latoBold {
+    font-weight: bold;
+}
+
+.increaseHeight {
+    height: 80px;
+}
+
+.blackText {
+    color: #000;
+}
+
+.whiteText {
+    color: #fff;
+}
+.form-control{
+    border:none;
+}
+.form-control:focus {
+    outline: none; /* This removes the blue border */
+    box-shadow: none; /* This ensures no shadow is applied */
+}
+.booking-section .form-group {
+    border: 1px solid #ced4da;
+}
+#dateContainer{
+    cursor: pointer;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
+}
+.Pricemodal {
+  display: none;
+  position: fixed;
+  z-index: 2500;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.Pricemodal .modal-content {
+    background-color: #fefefe;
+    /* margin: 15% auto; */
+    padding: 20px;
+    margin-top: 1%;
+    margin-left: 2.5%;
+    margin-left: 2;
+    border: 1px solid #888;
+    width: 95VW;
+    height: 90vh;
+}
+
+.Pricemodal .close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.Pricemodal .close:hover,
+.Pricemodal .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.modal-body .content-section{
+    height:60vh;
+    overflow:scroll;
+}
+
+.agent-details {
+    margin-bottom: 10px;
+    border: 1px solid green;
+    border-radius: 10px;
+    padding: 5px;
+    height: 50vh;
+    /* width: 150px; */
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+/* Select price button */
+.select-price-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.select-price-button:hover {
+    background-color: #0056b3;
+}
+#priceDetails{
+    display: flex;
+    gap: 2%;
+    scrollbar-width: none;
+    overflow: scroll;
+}
+    .filter-section {
+        width: 20%;
+        border-right: 1px solid #ddd;
+        padding: 10px;
+        overflow-y:auto;
+        height:60vh;
+        background-color: #f9f9f9;
+    }
+    .filter-section h5, .filter-section h6 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .filter-section div {
+        display:flex;
+        margin-bottom: 5px;
+    }
+
+    .filter-section label {
+        margin-left: 5px;
+    }
+    #flightDetails, #priceDetails, #bookflightPagediv {
+    margin: 20px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.agent-details {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.agent-header {
+    display: flex;
+    align-items: center;
+}
+
+.agent-logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.agent-rating {
+    display: flex;
+    align-items: center;
+}
+
+.agent-rating span {
+    margin-left: 5px;
+}
+
+.select-price-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.select-price-button:hover {
+    background-color: #0056b3;
+}
+
+.button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #218838;
+}
+    </style>
+    <header>
+        <nav>
+          <ul>
+            <!-- <li><a href="/">Home</a></li> -->
+            <!-- <li><a href="#flights">Flights</a></li>
+            <li><a href="#hotels">Hotels</a></li>
+            <li><a href="#cars">Rental Cars</a></li>
+            <li><a href="#trains">Trains</a></li>
+            <li><a href="#rapidos">Bikes</a></li> -->
+            <li id="loginBtn"><a href="#">Login</a></li>
+            <li id="registerBtn"><a href="#">Register</a></li>
+          </ul>
+        </nav>
+    </header>
+    <header class="bg-primary text-white text-center py-5 header-background">
+        <div class="container">
+            <h1 class="display-4">Welcome to the Travel Booking System</h1>
+            <p class="lead">Your one-stop solution for booking flights, hotels, rental cars, trains, and buses.</p>
+        </div>
+    </header>
+    <div class="container booking-section">
+        <h2>Book Your Travel</h2>
+        <ul class="nav nav-tabs" id="bookingTab" role="tablist" style="gap:10%">
+            <li class="nav-item">
+                <a class="nav-link active" id="trains-tab" data-toggle="tab" href="#trains" role="tab" aria-controls="trains" aria-selected="true">Trains</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="flights-tab" data-toggle="tab" href="#flights" role="tab" aria-controls="flights" aria-selected="false">Flights</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="cars-tab" data-toggle="tab" href="#cars" role="tab" aria-controls="cars" aria-selected="false">Cars</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="buses-tab" data-toggle="tab" href="#buses" role="tab" aria-controls="buses" aria-selected="false">Buses</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="rapidos-tab" data-toggle="tab" href="#rapidos" role="tab" aria-controls="rapidos" aria-selected="false">Rapidos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="hotels-tab" data-toggle="tab" href="#hotels" role="tab" aria-controls="hotels" aria-selected="false">Hotels</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="bookingTabContent">
+            <!-- Train Booking Form -->
+            <div class="tab-pane fade show active" id="trains" role="tabpanel" aria-labelledby="trains-tab">
+                <form id="trainForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="trainFrom">From</label>
+                            <input type="text" class="form-control station-input" id="trainFrom" placeholder="Departure Station" autocomplete="off" required>
+                            <ul class="station-list" id="trainFromList"></ul>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="trainTo">To</label>
+                            <input type="text" class="form-control station-input" id="trainTo" placeholder="Arrival Station" autocomplete="off" required>
+                            <ul class="station-list" id="trainToList"></ul>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="trainDate">Travel Date</label>
+                            <input type="date" class="form-control" id="trainDate">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="trainClass">Class</label>
+                            <select id="trainClass" class="form-control">
+                                <option selected>3A</option>
+                                <option>2A</option>
+                                <option>1A</option>
+                                <option>3E</option>
+                                <option>CC</option>
+                                <option>EC</option>
+                                <option>SL</option>
+                                <option>2S</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="csw outstationOneway">
+                        <p class="makeFlex vrtlCenter">
+                            <button type="submit" class="primaryBtn font24 latoBold widgetSearchBtn">Search</button>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <!-- Flight Booking Form -->
+            <div class="tab-pane fade" id="flights" role="tabpanel" aria-labelledby="flights-tab">
+                <form id="flightForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="flightFrom">From</label>
+                            <input type="text" class="form-control flight-input" id="flightFrom" placeholder="Departure Airport" autocomplete="off" required>
+                            <ul class="flight-list" id="flightFromList"></ul>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="flightTo">To</label>
+                            <input type="text" class="form-control flight-input" id="flightTo" placeholder="Arrival Airport" autocomplete="off" required>
+                            <ul class="flight-list" id="flightToList"></ul>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="flightDate">Travel Date</label>
+                            <input type="date" class="form-control" id="flightDate">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="flightClass">Class</label>
+                            <select id="flightClass" class="form-control">
+                                <option selected>All</option>
+                                <option>Economy</option>
+                                <option>Business</option>
+                                <option>First Class</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="csw outstationOneway">
+                        <p class="makeFlex vrtlCenter">
+                            <button type="submit" class="primaryBtn font24 latoBold widgetSearchBtn">Search</button>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <!-- Car Booking Form -->
+            <div class="tab-pane fade" id="cars" role="tabpanel" aria-labelledby="cars-tab">
+                <form id="carForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="carPickup">From</label>
+                            <input type="text" class="form-control car-input" id="carPickup" autocomplete="off" placeholder="Pickup Location">
+                            <ul class="car-list"></ul>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="carDropoff">To</label>
+                            <input type="text" class="form-control car-input" id="carDropoff" autocomplete="off" placeholder="Dropoff Location">
+                            <ul class="car-list"></ul>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="carPickupDate">Pickup Date</label>
+                            <input type="date" class="form-control" id="carPickupDate">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="carDropoffDate">Dropoff Date</label>
+                            <input type="date" class="form-control" id="carDropoffDate">
+                        </div>
+                    </div>
+                    <div class="csw outstationOneway">
+                        <div class="cabMulticityContainer">
+                            <div class="multiCityView-container"></div>
+                            <div class="addNewSec">
+                                <p class="addMoreTxt">+ Add Stops</p>
+                                <div class="newTagImg">new</div>
+                            </div>
+                        </div>
+                        <p class="makeFlex vrtlCenter">
+                            <button type="submit" class="primaryBtn font24 latoBold widgetSearchBtn">Search</button>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <!-- Bus Booking Form -->
+            <div class="tab-pane fade" id="buses" role="tabpanel" aria-labelledby="buses-tab">
+                <form id="busForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="busFrom">From</label>
+                            <input type="text" class="form-control bus-input" id="busFrom" autocomplete="off" placeholder="New Delhi">
+                            <ul class="bus-list"></ul>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="busTo">To</label>
+                            <input type="text" class="form-control bus-input" id="busTo" autocomplete="off" placeholder="Kanpur">
+                            <ul class="bus-list"></ul>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6" id="dateContainer">
+                            <label for="busDate">Travel Date</label>
+                            <input type="date" class="form-control" id="busDate">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="busClass">Type</label>
+                            <select id="busClass" class="form-control">
+                                <option selected>All Class</option>
+                                <option>AC</option>
+                                <option>Non-AC</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="csw outstationOneway">
+                        <p class="makeFlex vrtlCenter">
+                            <button type="submit" class="primaryBtn font24 latoBold widgetSearchBtn">Search</button>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <!-- Rapido Booking Form -->
+            <div class="tab-pane fade" id="rapidos" role="tabpanel" aria-labelledby="rapidos-tab">
+                <form id="rapidoForm">
+                    <div class="form-row">
+                        
+                        <div class="form-group col-md-6">
+                            <label for="rapidoPickup">Pickup Location</label>
+                            <input type="text" class="form-control rapido-input" id="rapidoPickup" autocomplete="off" placeholder="New Delhi">
+                            <ul class="rapido-list"></ul>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="rapidoDropoff">Dropoff Location</label>
+                            <input type="text" class="form-control rapido-input" id="rapidoDropoff" autocomplete="off" placeholder="Kanpur">
+                            <ul class="rapdio-list"></ul>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="rapidoPickupDate">Pickup Date</label>
+                            <input type="date" class="form-control" id="rapidoPickupDate">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="rapidoDropoffDate">Dropoff Date</label>
+                            <input type="date" class="form-control" id="rapidoDropoffDate">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+            <!-- Hotel Booking Form -->
+            <div class="tab-pane fade" id="hotels" role="tabpanel" aria-labelledby="hotels-tab">
+                <form class="hotelForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="hotelLocation">Location</label>
+                            <input type="text" class="form-control hotel-input" id="hotelLocation" autocomplete="off" placeholder="New Delhi">
+                            <ul class="hotel-list"></ul>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="hotelCheckIn">Check-In Date</label>
+                            <input type="date" class="form-control" id="hotelCheckIn">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="hotelCheckOut">Check-Out Date</label>
+                            <input type="date" class="form-control" id="hotelCheckOut">
+                        </div>
+                    </div>
+                    <div class="csw outstationOneway">
+                        <p class="makeFlex vrtlCenter">
+                            <button type="submit" class="primaryBtn font24 latoBold widgetSearchBtn">Search</button>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <main class="container mt-5">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="/uploads/vecteezy_airplane-in-sky-background_26748991.jpg" class="card-img-top" alt="Flights">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Flights</h5>
+                        <p class="card-text">Book domestic and international flights at the best prices.</p>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#authModal">Book Now</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="/uploads/istockphoto-119926339-1024x1024.jpg" class="card-img-top" alt="Hotels">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Hotels</h5>
+                        <p class="card-text">Find and book the best hotels worldwide.</p>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#authModal">Book Now</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="/uploads/dima-panyukov-DwxlhTvC16Q-unsplash.jpg" class="card-img-top" alt="Rental Cars">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Rental Cars</h5>
+                        <p class="card-text">Rent a car for your next trip.</p>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#authModal">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="/uploads/transportation-mode-speeds-railroad-tracks-sunset-generative-ai.jpg" class="card-img-top" alt="Trains">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Trains</h5>
+                        <p class="card-text">Book train tickets for comfortable travel.</p>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#authModal">Book Now</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="/uploads/AdobeStock_269475198_Preview.jpeg" class="card-img-top" alt="Buses">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Buses</h5>
+                        <p class="card-text">Book bus tickets for affordable travel.</p>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#authModal">Book Now</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <img src="/uploads/AdobeStock_487390112_Preview.jpeg" class="card-img-top" alt="Rapidos">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Bikes</h5>
+                        <p class="card-text">Book Rapido for affordable travel.</p>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#authModal">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body d-flex" style="flex-direction: row;">
+                    <div id="carouselExampleIndicators" class="carousel slide w-50" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="7"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="8"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block w-100" src="/uploads/Travel Images Free Download.jpg" alt="First slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Slide 1 Title</h5>
+                                    <p>Slide 1 Description</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="/uploads/15 Beautiful Places You Should Visit in Italy.jpg" alt="Second slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Slide 2 Title</h5>
+                                    <p>Slide 2 Description</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="/uploads/Be Bowled Over By Beauty At India’s Iconic Taj Mahal.jpg" alt="Third slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Slide 3 Title</h5>
+                                    <p>Slide 3 Description</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="/uploads/earthpix on Instagram_ @syifa_in_switzerland in….jpg" alt="Fourth slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Slide 3 Title</h5>
+                                    <p>Slide 3 Description</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="/uploads/Pin on Jazlene Solomon.jpg" alt="Fifth slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Slide 3 Title</h5>
+                                    <p>Slide 3 Description</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="/uploads/Van Life.jpg" alt="Sixth slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Slide 3 Title</h5>
+                                    <p>Slide 3 Description</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="/uploads/Paros Instagram Spots - Where to Take the Best Pictures of Paros, Greece - Top Travel Sights.jpg" alt="Seventh slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Slide 3 Title</h5>
+                                    <p>Slide 3 Description</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="/uploads/🇧🇷 NOVA YORK NYC🗽NEW YORK NY🇺🇸 on Instagram….jpg" alt="Eighth slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Slide 3 Title</h5>
+                                    <p>Slide 3 Description</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="/uploads/What does travel quarantine mean for the UK_.jpg" alt="Nineth slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Slide 3 Title</h5>
+                                    <p>Slide 3 Description</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                    <div class="w-50 d-flex flex-column justify-content-center align-items-center" id="authContent">
+                        <!-- <h5 class="mb-4">Continue Your Journey</h5>
+                        <p class="mb-4">Please choose an option below:</p>
+                        <a class="btn btn-primary btn-lg mb-2" href="/auth/login" role="button">Login</a>
+                        <a class="btn btn-success btn-lg" href="/auth/register" role="button">Register</a> -->
+                        <%-include('auth/register')-%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="searchResultsModal" tabindex="-1" aria-labelledby="searchResultsModalLabel" aria-hidden="true" style="overflow-y:scroll">
+        <div class="modal-dialog modal-lg" style="max-width:1300px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="searchResultsModalLabel">Search Results</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="searchResultsBody">
+                    <!-- Search results will be injected here -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="ViewPriceModal" class="Pricemodal">
+        <div class="modal-content">
+          <!-- Flight details -->
+          <div id="flightDetails"></div>
+          
+          <!-- Price details -->
+          <div id="priceDetails"></div>
+      
+          <!-- Button to book flight or close modal -->
+          <div id="bookflightPagediv">
+            <!-- <form id="bookflightPageRedirect">
+                <button id="bookFlightBtn" class="button">Book Flight</button>
+            </form> -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="closemodal" class="btn btn-secondary" data-dismiss="Pricemodal">Close</button>
+        </div>
+        </div>
+      </div>
+    <footer>
+        <p>&copy; <%= new Date().getFullYear() %> Travel Booking System</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const stations=JSON.parse('<%-JSON.stringify(stations)%>');
+    $(document).ready(function() {
+    // Populate the station list based on user input
+    function populateStationList(input, list) {
+        list.empty();
+        const inputValue = input.val().toLowerCase();
+        const filteredStations = stations.filter(station =>
+            station.code.toLowerCase().includes(inputValue) ||
+            station.name.toLowerCase().includes(inputValue)
+        );
+        filteredStations.slice(0, 10).forEach(station => {
+            const listItem = $('<li>').text(`${station.code},${station.name}`);
+            list.append(listItem);
+        });
+        if (filteredStations.length > 0) {
+            list.show();
+        } else {
+            list.hide();
+        }
+    }
+
+    // Event listeners for input fields
+    $('.station-input').on('input', function() {
+        const input = $(this);
+        const list = input.next('.station-list');
+        populateStationList(input, list);
+    });
+
+    // Event listener for selecting a station from the list
+    $('.station-list').on('click', 'li', function() {
+        const listItem = $(this);
+        const input = listItem.parent().prev('.station-input');
+        input.val(listItem.text());
+        listItem.parent().hide();
+    });
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('.station-input').length) {
+            $('.station-list').hide();
+        }
+    });
+});
+        $(document).ready(function() {
+          if (!localStorage.getItem('modalShown')) {
+            $('#authModal').modal('show');
+            localStorage.setItem('modalShown', true);
+          }
+          $('#loginBtn').click(function() {
+        // Load login form into the modal
+        $('#authContent').load('/auth/login');
+        // Show the modal
+        $('#authModal').modal('show');
+    });
+
+    // Attach click event handler to register button
+    $('#registerBtn').click(function() {
+        // Load register form into the modal
+        $('#authContent').load('/auth/register');
+        // Show the modal
+        $('#authModal').modal('show');
+    });
+        });
+    </script>
+    <script>
+        document.getElementById('trainForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            
+            const from = document.getElementById('trainFrom').value;
+            const to = document.getElementById('trainTo').value;
+            const date = document.getElementById('trainDate').value;
+            const trainClass = document.getElementById('trainClass').value;
+            
+            fetch('allsearch/search/train', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ from, to, date, class: trainClass }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                initializeModal(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+            function initializeModal(trains) {
+        const resultsBody = document.getElementById('searchResultsBody');
+        resultsBody.innerHTML = ''; // Clear previous results
+        
+        const headerDates = document.createElement('div');
+headerDates.className = 'header-dates';
+headerDates.style.display = 'flex';
+headerDates.style.overflowX = 'scroll';
+headerDates.style.padding = '10px 0';
+headerDates.style.borderBottom = '1px solid #ddd';
+headerDates.style.whiteSpace = 'nowrap';
+
+const today = new Date();
+const tomorrow = new Date(today);
+tomorrow.setDate(today.getDate() + 1); // Get tomorrow's date
+
+// Function to get the number of days in a month
+function daysInMonth(month, year) {
+    return new Date(year, month + 1, 0).getDate();
+}
+
+// Create date buttons for each day from tomorrow onwards
+for (let i = 0; i < 365; i++) { // show next 365 days
+    const dateBtn = document.createElement('button');
+    const date = new Date(today);
+    date.setDate(tomorrow.getDate() + i);
+    
+    // Check if the year has changed
+    if (date.getFullYear() > today.getFullYear()) {
+        tomorrow.setFullYear(date.getFullYear());
+    }
+
+    const formattedDate = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    dateBtn.textContent = formattedDate;
+    dateBtn.className = 'date-button';
+    dateBtn.style.cursor = 'pointer';
+    dateBtn.style.padding = '10px 20px';
+    dateBtn.style.margin = '5px';
+    dateBtn.style.border = 'none';
+    dateBtn.style.background = '#007bff';
+    dateBtn.style.color = 'white';
+    dateBtn.style.borderRadius = '5px';
+    dateBtn.onclick = () => filtertrainsByDate(date.toISOString(), trains);
+    headerDates.appendChild(dateBtn);
+}
+
+        const filterSection = document.createElement('div');
+        filterSection.className = 'filter-section';
+        filterSection.style.width = '20%';
+        filterSection.style.borderRight = '1px solid #ddd';
+        filterSection.style.padding = '10px';
+        
+        const filterTitle = document.createElement('h5');
+        filterTitle.textContent = 'Filters';
+        filterSection.appendChild(filterTitle);
+        
+        // Add some example filters (e.g., Non-Stop, Morning Departures, Evening Departures)
+        const filters = ['Non-Stop', 'Morning Departures', 'Evening Departures'];
+        filters.forEach(filter => {
+            const filterCheckbox = document.createElement('input');
+            filterCheckbox.type = 'checkbox';
+            filterCheckbox.id = filter.replace(/\s+/g, '');
+            filterCheckbox.name = filter;
+            filterCheckbox.value = filter;
+            filterCheckbox.onclick = () => applyFilter(trains);
+            
+            const filterLabel = document.createElement('label');
+            filterLabel.htmlFor = filter.replace(/\s+/g, '');
+            filterLabel.textContent = filter;
+            filterLabel.style.marginLeft = '5px';
+            
+            const filterDiv = document.createElement('div');
+            filterDiv.style.marginBottom = '10px';
+            filterDiv.appendChild(filterCheckbox);
+            filterDiv.appendChild(filterLabel);
+            
+            filterSection.appendChild(filterDiv);
+        });
+        
+        const contentSection = document.createElement('div');
+        contentSection.className = 'content-section';
+        contentSection.style.width = '80%';
+        contentSection.style.padding = '10px';
+        
+        const contentWrapper = document.createElement('div');
+        contentWrapper.style.display = 'flex';
+        
+        contentWrapper.appendChild(filterSection);
+        contentWrapper.appendChild(contentSection);
+        
+        resultsBody.appendChild(headerDates);
+        resultsBody.appendChild(contentWrapper);
+        
+        // Initially display all flights
+        displayTrains(trains, contentSection);
+        $('#searchResultsModal').modal('show'); // Show the modal
+    }     
+        
+    function displayTrains(trains, container) {
+    container.innerHTML = '';
+    if (trains.length === 0) {
+        container.innerHTML = '<p>No Trains found.</p>';
+        return;
+    }
+
+    trains.forEach(train => {
+        const listItem = document.createElement('div');
+        listItem.className = 'flight-item';
+        listItem.style.display = 'flex';
+        listItem.style.justifyContent = 'space-between';
+        listItem.style.alignItems = 'center';
+        listItem.style.borderBottom = '1px solid #ddd';
+        listItem.style.padding = '10px 0';
+
+        listItem.innerHTML = `
+            <div class="flight-details" style="display: flex; gap: 20px; align-items: center;">
+                <div style="display:flex;gap:5%">
+                    <img src="/uploads/7vsi_b8gq_210929.jpg" alt="${train.train_name}" style="width: 30px; height: 30px;margin-top:10%;margin-right:5%; object-fit: contain;">
+                    <div style="display:flex;flex-direction:column">
+                        <div style="font-weight:bold">${train.train_name}</div>
+                        <div>${train.train_number}</div>
+                    </div>
+                </div>
+                <div class="travelduration">
+                    <div style="display:flex;flex-direction:column">
+                        <div>${train.from_std}</div>
+                        <span>${train.from}</span>
+                    </div>
+                    <div style="margin-left:25%;margin-right:25%">
+                        <div style="display:flex;place-content:center"> ⇆ </div>
+                        <div>${train.duration}</div>
+                    </div>
+                    <div style="display:flex;flex-direction:column">
+                        <div>${train.to_std}</div>
+                        <span>${train.to}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flight-prices">
+                ${(() => {
+                    //const prices = train.coaches.map(coach => coach.price);
+                    // const minPrice = Math.min(...prices);
+                    return `<div style="display:flex;flex-direction:column">
+                             <div>₹${500}</div>
+                             <span>per adult</span>
+                           </div>`;
+                })()}
+               <form id="booktrainPageRedirect${train._id}">
+                    <button class="button" type="submit" id="viewdetailsbutton" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">View Details</button>
+               </form>
+            </div>
+        `;
+        container.appendChild(listItem);
+        document.getElementById('booktrainPageRedirect' + train._id).addEventListener('submit', function(event) {
+            event.preventDefault();
+            sessionStorage.setItem('selectedTrain', JSON.stringify(train));
+            window.location.href = '/trainbookingForm';
+        });
+    });
+}
+
+    async function filtertrainsByDate(date) {
+    try {
+        let onlydate=date.split('T')[0];
+        const response = await fetch(`allsearch/search/train?date=${onlydate}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch trains');
+        }
+        const filteredtrains = await response.json();
+        const contentSection = document.querySelector('.content-section');
+        displayTrains(filteredtrains,contentSection);
+    } catch (error) {
+        console.error('Error fetching flights:', error);
+        // Handle errors, e.g., display an error message to the user
+    }
+}
+
+    function applyFilter(trains) {
+        const nonStop = document.getElementById('Non-Stop').checked;
+        const morningDepartures = document.getElementById('MorningDepartures').checked;
+        const eveningDepartures = document.getElementById('EveningDepartures').checked;
+        
+        let filteredFlights = flights;
+        
+        if (nonStop) {
+            filteredFlights = filteredFlights.filter(flight => flight.nonStop);
+        }
+        if (morningDepartures) {
+            filteredFlights = filteredFlights.filter(flight => {
+                const hour = new Date(flight.departureDate).getHours();
+                return hour >= 6 && hour < 12;
+            });
+        }
+        if (eveningDepartures) {
+            filteredFlights = filteredFlights.filter(flight => {
+                const hour = new Date(flight.departureDate).getHours();
+                return hour >= 18 && hour < 24;
+            });
+        }
+        
+        const contentSection = document.querySelector('.content-section');
+        displayFlights(filteredFlights, contentSection);
+    }
+
+    function calculateDuration(time1, time2) {
+    const [hours1, minutes1] = time1.split(':').map(Number);
+    const [hours2, minutes2] = time2.split(':').map(Number);
+
+    // Create two date objects representing the times on the same day
+    const date1 = new Date(0, 0, 0, hours1, minutes1);
+    const date2 = new Date(0, 0, 0, hours2, minutes2);
+
+    // Calculate the difference in milliseconds
+    let diff = date2 - date1;
+
+    // If diff is negative, it means date2 is on the next day
+    if (diff < 0) {
+        diff += 24 * 60 * 60 * 1000; // Add 24 hours in milliseconds
+    }
+
+    // Convert milliseconds to hours and minutes
+    const diffHours = Math.floor(diff / (1000 * 60 * 60));
+    const diffMinutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+    return `${diffHours} h ${diffMinutes} m`;
+}
+        });
+    </script>
+    <script>
+        const airports = JSON.parse('<%- JSON.stringify(airports) %>');
+        $(document).ready(function() {
+            function populateFlightList(input, list) {
+                list.empty();
+                const inputValue = input.val().toLowerCase();
+                const filteredAirports = airports.filter(airport =>
+                    airport.code.toLowerCase().includes(inputValue) ||
+                    airport.name.toLowerCase().includes(inputValue) ||
+                    airport.location.toLowerCase().includes(inputValue)
+                );
+                filteredAirports.slice(0, 10).forEach(airport => {
+                    const listItem = $('<li>').text(`${airport.code},${airport.name}, ${airport.location}`);
+                    list.append(listItem);
+                });
+
+                if (filteredAirports.length > 0) {
+                    list.show();
+                } else {
+                    list.hide();
+                }
+            }
+            $('.flight-input').on('input', function() {
+                const input = $(this);
+                const list = input.next('.flight-list');
+                populateFlightList(input, list);
+            });
+            $('.flight-list').on('click', 'li', function() {
+                const listItem = $(this);
+                const input = listItem.parent().prev('.flight-input');
+                input.val(listItem.text());
+                listItem.parent().hide();
+            });
+            $(document).on('click', function(event) {
+                if (!$(event.target).closest('.flight-input').length) {
+                    $('.flight-list').hide();
+                }
+            });
+            $('.flight-input').on('click', function(event) {
+                event.stopPropagation();
+            });
+        });
+document.getElementById('flightForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    
+    const from = document.getElementById('flightFrom').value;
+    const to = document.getElementById('flightTo').value;
+    const date = document.getElementById('flightDate').value;
+    const flightClass = document.getElementById('flightClass').value;
+    
+    fetch('allsearch/search/flight', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ from, to, date, class: flightClass }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        initializeModal(data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+
+    function initializeModal(flights) {
+        const resultsBody = document.getElementById('searchResultsBody');
+        resultsBody.innerHTML = ''; // Clear previous results
+        
+        const headerDates = document.createElement('div');
+        headerDates.className = 'header-dates';
+        headerDates.style.display = 'flex';
+        headerDates.style.overflowX = 'scroll';
+        headerDates.style.padding = '10px 0';
+        headerDates.style.borderBottom = '1px solid #ddd';
+        headerDates.style.whiteSpace = 'nowrap';
+
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1); // Get tomorrow's date
+
+        // Function to get the number of days in a month
+        function daysInMonth(month, year) {
+            return new Date(year, month + 1, 0).getDate();
+        }
+
+        // Create date buttons for each day from tomorrow onwards
+        for (let i = 0; i < 365; i++) { // show next 365 days
+            const dateBtn = document.createElement('button');
+            const date = new Date(today);
+            date.setDate(tomorrow.getDate() + i);
+            
+            // Check if the year has changed
+            if (date.getFullYear() > today.getFullYear()) {
+                tomorrow.setFullYear(date.getFullYear());
+            }
+
+            const formattedDate = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+            dateBtn.textContent = formattedDate;
+            dateBtn.className = 'date-button';
+            dateBtn.style.cursor = 'pointer';
+            dateBtn.style.padding = '10px 20px';
+            dateBtn.style.margin = '5px';
+            dateBtn.style.border = 'none';
+            dateBtn.style.background = '#007bff';
+            dateBtn.style.color = 'white';
+            dateBtn.style.borderRadius = '5px';
+            dateBtn.onclick = () => filterFlightsByDate(date.toISOString(), flights);
+            headerDates.appendChild(dateBtn);
+        }
+
+        const filterSection = document.createElement('div');
+        filterSection.className = 'filter-section';
+        filterSection.style.width = '20%';
+        filterSection.style.borderRight = '1px solid #ddd';
+        filterSection.style.padding = '10px';
+
+        const filterTitle = document.createElement('h5');
+        filterTitle.textContent = 'Filters';
+        filterSection.appendChild(filterTitle);
+
+        // Example filters
+        const filters = ['Non-Stop', 'Morning Departures', 'Evening Departures'];
+        filters.forEach(filter => {
+            const filterCheckbox = document.createElement('input');
+            filterCheckbox.type = 'checkbox';
+            filterCheckbox.id = filter.replace(/\s+/g, '');
+            filterCheckbox.name = filter;
+            filterCheckbox.value = filter;
+            filterCheckbox.onclick = () => applyFilter(flights, from, to, date);
+
+            const filterLabel = document.createElement('label');
+            filterLabel.htmlFor = filter.replace(/\s+/g, '');
+            filterLabel.textContent = filter;
+            filterLabel.style.marginLeft = '5px';
+
+            const filterDiv = document.createElement('div');
+            filterDiv.style.marginBottom = '10px';
+            filterDiv.appendChild(filterCheckbox);
+            filterDiv.appendChild(filterLabel);
+
+            filterSection.appendChild(filterDiv);
+        });
+
+        // Dynamic Airline Filters
+        const airlineFilterTitle = document.createElement('h6');
+        airlineFilterTitle.textContent = 'Airlines';
+        filterSection.appendChild(airlineFilterTitle);
+
+        const uniqueAirlines = new Set();
+        flights.forEach(flight => {
+            const cachedFlight = getCachedFlightDetails(from, to, date, flight.itineraryId);
+            console.log(cachedFlight);
+            if (cachedFlight) {
+                cachedFlight.data.itinerary.legs.forEach(leg => {
+                    leg.segments.forEach(segment => {
+                        uniqueAirlines.add(segment.marketingCarrier.name);
+                    });
+                });
+            }
+        });
+
+        uniqueAirlines.forEach(airline => {
+            const airlineCheckbox = document.createElement('input');
+            airlineCheckbox.type = 'checkbox';
+            airlineCheckbox.id = airline.replace(/\s+/g, '');
+            airlineCheckbox.name = 'Airlines';
+            airlineCheckbox.value = airline;
+            airlineCheckbox.onclick = () => applyFilter(flights, from, to, date);
+
+            const airlineLabel = document.createElement('label');
+            airlineLabel.htmlFor = airline.replace(/\s+/g, '');
+            airlineLabel.textContent = airline;
+            airlineLabel.style.marginLeft = '5px';
+
+            const airlineDiv = document.createElement('div');
+            airlineDiv.style.marginBottom = '10px';
+            airlineDiv.appendChild(airlineCheckbox);
+            airlineDiv.appendChild(airlineLabel);
+
+            filterSection.appendChild(airlineDiv);
+        });
+
+        // Additional Filters: Stops, Timing From Source, Timing At Destination
+        const stopsTitle = document.createElement('h6');
+        stopsTitle.textContent = 'Number of Stops';
+        filterSection.appendChild(stopsTitle);
+
+        const stopOptions = ['0 Stops', '1 Stop', '2+ Stops'];
+        stopOptions.forEach(option => {
+            const stopCheckbox = document.createElement('input');
+            stopCheckbox.type = 'checkbox';
+            stopCheckbox.id = option.replace(/\s+/g, '');
+            stopCheckbox.name = 'Stops';
+            stopCheckbox.value = option;
+            stopCheckbox.onclick = () => applyFilter(flights, from, to, date);
+
+            const stopLabel = document.createElement('label');
+            stopLabel.htmlFor = option.replace(/\s+/g, '');
+            stopLabel.textContent = option;
+            stopLabel.style.marginLeft = '5px';
+
+            const stopDiv = document.createElement('div');
+            stopDiv.style.marginBottom = '10px';
+            stopDiv.appendChild(stopCheckbox);
+            stopDiv.appendChild(stopLabel);
+
+            filterSection.appendChild(stopDiv);
+        });
+
+        const timingTitle = document.createElement('h6');
+        timingTitle.textContent = 'Timing from Source';
+        filterSection.appendChild(timingTitle);
+
+        const timingOptions = ['Early Morning (12am-6am)', 'Morning (6am-12pm)', 'Afternoon (12pm-6pm)', 'Evening (6pm-12am)'];
+        timingOptions.forEach(option => {
+            const timingCheckbox = document.createElement('input');
+            timingCheckbox.type = 'checkbox';
+            timingCheckbox.id = option.replace(/\s+/g, '');
+            timingCheckbox.name = 'TimingFromSource';
+            timingCheckbox.value = option;
+            timingCheckbox.onclick = () => applyFilter(flights, from, to, date);
+
+            const timingLabel = document.createElement('label');
+            timingLabel.htmlFor = option.replace(/\s+/g, '');
+            timingLabel.textContent = option;
+            timingLabel.style.marginLeft = '5px';
+
+            const timingDiv = document.createElement('div');
+            timingDiv.style.marginBottom = '10px';
+            timingDiv.appendChild(timingCheckbox);
+            timingDiv.appendChild(timingLabel);
+
+            filterSection.appendChild(timingDiv);
+        });
+
+        const destinationTimingTitle = document.createElement('h6');
+        destinationTimingTitle.textContent = 'Timing at Destination';
+        filterSection.appendChild(destinationTimingTitle);
+
+        const destinationTimingOptions = ['Early Morning (12am-6am)', 'Morning (6am-12pm)', 'Afternoon (12pm-6pm)', 'Evening (6pm-12am)'];
+        destinationTimingOptions.forEach(option => {
+            const destinationTimingCheckbox = document.createElement('input');
+            destinationTimingCheckbox.type = 'checkbox';
+            destinationTimingCheckbox.id = option.replace(/\s+/g, '');
+            destinationTimingCheckbox.name = 'TimingAtDestination';
+            destinationTimingCheckbox.value = option;
+            destinationTimingCheckbox.onclick = () => applyFilter(flights, from, to, date);
+
+            const destinationTimingLabel = document.createElement('label');
+            destinationTimingLabel.htmlFor = option.replace(/\s+/g, '');
+            destinationTimingLabel.textContent = option;
+            destinationTimingLabel.style.marginLeft = '5px';
+
+            const destinationTimingDiv = document.createElement('div');
+            destinationTimingDiv.style.marginBottom = '10px';
+            destinationTimingDiv.appendChild(destinationTimingCheckbox);
+            destinationTimingDiv.appendChild(destinationTimingLabel);
+
+            filterSection.appendChild(destinationTimingDiv);
+        });
+        
+        const contentSection = document.createElement('div');
+        contentSection.className = 'content-section';
+        contentSection.style.width = '80%';
+        contentSection.style.padding = '10px';
+        
+        const contentWrapper = document.createElement('div');
+        contentWrapper.style.display = 'flex';
+        
+        contentWrapper.appendChild(filterSection);
+        contentWrapper.appendChild(contentSection);
+        
+        resultsBody.appendChild(headerDates);
+        resultsBody.appendChild(contentWrapper);
+        
+        // Initially display all flights
+        displayFlights(flights, contentSection);
+        
+        $('#searchResultsModal').modal('show'); // Show the modal
+    }
+    
+    function displayFlights(flights, container) {
+        container.innerHTML = '';
+        if (flights.length === 0) {
+            container.innerHTML = '<p>No flights found.</p>';
+            return;
+        }
+        flights.forEach(async flight => {
+            const fetchflightDetails = async (from,to,date,itineraryId,token ) => {
+                
+    const options = {
+        method: 'GET',
+        url: 'https://sky-scanner3.p.rapidapi.com/flights/detail',
+        params: {
+            token:token,
+            itineraryId:itineraryId,
+            currency: 'INR'
+        },
+        headers: {
+            'X-RapidAPI-Key': '86d1b0d0a0mshb0ffd1ca2eddb80p12e5d5jsnbfddea4c26e8',
+            
+            'X-RapidAPI-Host': 'sky-scanner3.p.rapidapi.com'
+        }
+    };
+
+    try {
+        const response = await axios.request(options);
+        // localStorage.setItem(key, JSON.stringify(response.data));
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+    let Flight = getCachedFlightDetails(from, to, date,flight.itineraryId);
+
+    if (!Flight) {
+        Flight = await fetchflightDetails(from, to, date,flight.itineraryId, flight.token);
+        updateCachedFlightDetails(from,to,date,flight.itineraryId, Flight);
+    }
+
+//const Flight=await fetchflightDetails(from,to,date,flight.itineraryId,flight.token);
+console.log(Flight);
+Flight.data.itinerary.legs.forEach(leg=>{
+    const listItem = document.createElement('div');
+            listItem.className = 'flight-item';
+            listItem.style.display = 'flex';
+            listItem.style.justifyContent = 'space-between';
+            listItem.style.alignItems = 'center';
+            listItem.style.borderBottom = '1px solid #ddd';
+            listItem.style.padding = '10px 0';
+            listItem.innerHTML = `
+    <div class="flight-details" style="display: flex; gap: 20px; align-items: center;">
+        <div style="display:flex;max-width:100px;overflow-x:auto;scrollbar-width:none" id="imagesurl">
+            ${leg.segments.map(segment => `
+                <div style="position: relative; display: flex; flex-direction: row; align-items: center;">
+                    <img src="${segment.marketingCarrier.logo}" style="width: 30px; height: 30px; object-fit: cover;">
+                    <div style="display:flex;flex-direction:column;margin-left:4px;margin-right:2px">
+                        <span style="font-size:12px;font-weight:bold">${segment.marketingCarrier.name}</span>
+                        <span style="font-size: 8px;margin-right:1px">${segment.flightNumber}</span>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+        <div class="travelduration">
+            <div style="display:flex;flex-direction:column">
+                <div>🛫 ${new Date(leg.departure).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false })}</div>
+                <span>${leg.origin.city}</span>
+            </div>
+            <div style="margin-left:25%;margin-right:25%">
+                <div style="display:flex;place-content:center"> ⇆ </div>
+                ${leg.segments.length === 1 ? `<div><a>Non-stop</a></div>` : ''}
+                ${leg.segments.length === 2 ? `<div><a>One-stop via</a></div>` : ''}
+                ${leg.segments.length > 2 ? `<div><a>Multiple stops via</a></div>` : ''}
+                ${leg.segments.length > 1 ? `
+                    <div style="display: flex;">
+                        ${leg.segments.slice(0, -1).map((segment, index) => `
+                            <div style="margin-right: 5px;">
+                                ${segment.destination.city} 
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+                <div>${calculateDuration(leg.departure, leg.arrival)}</div>
+            </div>
+            <div style="display:flex;flex-direction:column">
+                <div>🛬 ${new Date(leg.arrival).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false })}</div>
+                <span>${leg.destination.city}</span>
+            </div>
+        </div>
+    </div>
+    <div class="flight-prices">
+        <div style="display:flex;flex-direction:column">
+            <div>
+                ${flight.price}
+            </div>
+            <span>per adult</span>
+        </div>
+        <button class="button" id="viewpricebutton${leg.id}"  style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">View Prices</button>
+    </div>
+`;
+            container.appendChild(listItem);
+            document.getElementById('viewpricebutton'+`${leg.id}`).addEventListener('click', function() {
+                displayViewPriceModal(Flight.data.itinerary,leg,flight.price);
+            });
+            document.getElementById('closemodal').addEventListener('click',function(){
+                const modal=document.getElementById('ViewPriceModal')
+                modal.style.display='none';
+            })
+           
+})
+        });
+    }
+    const getCachedFlightDetails = (src, dst, travelDate,id) => {
+        const cachedFlights = JSON.parse(localStorage.getItem('flightCache')) || {};
+        const key = `${src}-${dst}-${travelDate}-${id}`;
+        return cachedFlights[key] || null;
+    };
+
+// Function to update cached flight details
+    const updateCachedFlightDetails = (src, dst, travelDate,id, flightData) => {
+        const cachedFlights = JSON.parse(localStorage.getItem('flightCache')) || {};
+        const key = `${src}-${dst}-${travelDate}-${id}`;
+        cachedFlights[key] = flightData;
+        localStorage.setItem('flightCache', JSON.stringify(cachedFlights));
+    };
+    function displayViewPriceModal(pricingDetails, leg, price) {
+    // Get the modal element
+    const modal = document.getElementById("ViewPriceModal");
+
+    // Get the elements to display flight and price details
+    const flightDetailsContainer = document.getElementById("flightDetails");
+    const priceDetailsContainer = document.getElementById("priceDetails");
+    const formDetailsContainer = document.getElementById("bookflightPagediv");
+
+    // Populate flight details
+    flightDetailsContainer.innerHTML = `
+        <div><strong>Departure Airport:</strong> ${leg.origin.city}</div>
+        <div><strong>Arrival Airport:</strong> ${leg.destination.city}</div>
+        <div><strong>Departure Time:</strong> ${new Date(leg.departure).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}</div>
+        <div><strong>Arrival Time:</strong> ${new Date(leg.arrival).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}</div>
+    `;
+
+    // Populate price details
+    priceDetailsContainer.innerHTML = pricingDetails.pricingOptions.map(agent => `
+        <div class="agent-details">
+            <div class="agent-header">
+               
+                <div>
+                    <div><strong>Agent:</strong> ${agent.agents[0].name}</div>
+                    <div class="agent-rating">
+                        ${'★'.repeat(Math.floor(agent.agents[0].rating.value))}${'☆'.repeat(5 - Math.floor(agent.agents[0].rating.value))}
+                        <span>(${agent.agents[0].rating.count} reviews)</span>
+                    </div>
+                </div>
+            </div>
+            <div><strong>Price:</strong> ₹${agent.totalPrice.toFixed(2)}</div>
+            <button class="select-price-button" data-agent-id="${agent.id}" data-price="${agent.totalPrice}">Select this price</button>
+        </div>
+    `).join('');
+
+    formDetailsContainer.innerHTML = `
+        <form id="bookflightPageRedirect">
+            <button id="bookFlightBtn" class="button">Book Flight</button>
+        </form>
+    `;
+
+    // Display the modal
+    modal.style.display = "block";
+
+    // Add event listeners for the select price buttons
+    document.querySelectorAll('.select-price-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const agentId = this.getAttribute('data-agent-id');
+            const selectedPrice = this.getAttribute('data-price');
+
+            sessionStorage.setItem('selectedAgentId', agentId);
+            sessionStorage.setItem('selectedPrice', selectedPrice);
+            document.getElementById('bookFlightBtn').click();
+        });
+    });
+
+    // Add event listener for the form submission
+    document.getElementById('bookflightPageRedirect').addEventListener('submit', function(event) {
+        event.preventDefault();
+        sessionStorage.setItem('selectedFlight', JSON.stringify(pricingDetails));
+        sessionStorage.setItem('price', price);
+        window.location.href = '/bookingForm';
+    });
+}
+
+    function getUniqueAirlines(flights, from, to, date) {
+        const airlines = new Set();
+        
+        flights.forEach(flight => {
+            let cachedFlight = getCachedFlightDetails(from, to, date, flight.itineraryId);
+            
+            if (cachedFlight) {
+                cachedFlight.data.itinerary.legs.forEach(leg => {
+                    leg.segments.forEach(segment => {
+                        airlines.add(segment.marketingCarrier.name);
+                    });
+                });
+            }
+        });
+
+        return Array.from(airlines);
+    }
+    async function filterFlightsByDate(date) {
+        try {
+            let onlydate=date.split('T')[0];
+            const response = await fetch(`allsearch/search/flight?date=${onlydate}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch flights');
+            }
+            const filteredFlights = await response.json();
+            const contentSection = document.querySelector('.content-section');
+            displayFlights(filteredFlights,contentSection);
+        } catch (error) {
+            console.error('Error fetching flights:', error);
+            // Handle errors, e.g., display an error message to the user
+        }
+    }
+
+    function applyFilter(flights, from, to, date) {
+        const nonStop = document.getElementById('Non-Stop').checked;
+        const morningDepartures = document.getElementById('MorningDepartures').checked;
+        const eveningDepartures = document.getElementById('EveningDepartures').checked;
+
+        const selectedAirlines = Array.from(document.querySelectorAll('input[name="Airlines"]:checked')).map(el => el.value);
+
+        const stopOptions = Array.from(document.querySelectorAll('input[name="Stops"]:checked')).map(el => el.value);
+        const timingFromSourceOptions = Array.from(document.querySelectorAll('input[name="TimingFromSource"]:checked')).map(el => el.value);
+        const timingAtDestinationOptions = Array.from(document.querySelectorAll('input[name="TimingAtDestination"]:checked')).map(el => el.value);
+
+        let filteredFlights = flights.filter(flight => {
+            let cachedFlight = getCachedFlightDetails(from, to, date, flight.itineraryId);
+
+            if (!cachedFlight) return false;
+
+            let matchesFilters = true;
+
+            // Apply Non-Stop filter
+            if (nonStop) {
+                matchesFilters = matchesFilters && cachedFlight.data.itinerary.legs.every(leg => leg.segments.length === 1);
+            }
+
+            // Apply Morning Departures filter
+            if (morningDepartures) {
+                matchesFilters = matchesFilters && cachedFlight.data.itinerary.legs.some(leg => {
+                    return leg.segments.some(segment => {
+                        const hour = new Date(segment.departure).getHours();
+                        return hour >= 6 && hour < 12;
+                    });
+                });
+            }
+
+            // Apply Evening Departures filter
+            if (eveningDepartures) {
+                matchesFilters = matchesFilters && cachedFlight.data.itinerary.legs.some(leg => {
+                    return leg.segments.some(segment => {
+                        const hour = new Date(segment.departure).getHours();
+                        return hour >= 18 && hour < 24;
+                    });
+                });
+            }
+
+            // Apply Airline filter
+            if (selectedAirlines.length > 0) {
+                matchesFilters = matchesFilters && cachedFlight.data.itinerary.legs.some(leg => {
+                    return leg.segments.some(segment => {
+                        return selectedAirlines.includes(segment.marketingCarrier.name);
+                    });
+                });
+            }
+
+            // Apply Stops filter
+            if (stopOptions.length > 0) {
+                matchesFilters = matchesFilters && stopOptions.some(option => {
+                    const numberOfStops = cachedFlight.data.itinerary.legs[0].segments.length - 1;
+                    if (option === '0 Stops') return numberOfStops === 0;
+                    if (option === '1 Stop') return numberOfStops === 1;
+                    if (option === '2+ Stops') return numberOfStops >= 2;
+                });
+            }
+            if (timingFromSourceOptions.length > 0) {
+                matchesFilters = matchesFilters && timingFromSourceOptions.some(option => {
+                    return cachedFlight.data.itinerary.legs.some(leg => {
+                        return leg.segments.some(segment => {
+                            const hour = new Date(segment.departure).getHours();
+                            if (option === 'Early Morning (12am-6am)') return hour >= 0 && hour < 6;
+                            if (option === 'Morning (6am-12pm)') return hour >= 6 && hour < 12;
+                            if (option === 'Afternoon (12pm-6pm)') return hour >= 12 && hour < 18;
+                            if (option === 'Evening (6pm-12am)') return hour >= 18 && hour < 24;
+                        });
+                    });
+                });
+            }
+            if (timingAtDestinationOptions.length > 0) {
+                matchesFilters = matchesFilters && timingAtDestinationOptions.some(option => {
+                    return cachedFlight.data.itinerary.legs.some(leg => {
+                        return leg.segments.some(segment => {
+                            const hour = new Date(segment.arrival).getHours();
+                            if (option === 'Early Morning (12am-6am)') return hour >= 0 && hour < 6;
+                            if (option === 'Morning (6am-12pm)') return hour >= 6 && hour < 12;
+                            if (option === 'Afternoon (12pm-6pm)') return hour >= 12 && hour < 18;
+                            if (option === 'Evening (6pm-12am)') return hour >= 18 && hour < 24;
+                        });
+                    });
+                });
+            }
+            return matchesFilters;
+        });
+        const contentSection = document.querySelector('.content-section');
+        displayFlights(filteredFlights, contentSection);
+    }
+
+    function calculateDuration(departure, arrival) {
+        const dep = new Date(departure);
+        const arr = new Date(arrival);
+        const diffMs = arr - dep;
+        const diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+        const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+        return `${diffHrs}h ${diffMins.toString().padStart(2, '0')}m`;
+    }
+
+});
+    </script>
+
+    <script>
+       const busstations=JSON.parse('<%-JSON.stringify(busstations)%>');
+        $(document).ready(function() {
+    function populateCarList(input, list) {
+        list.empty();
+        const inputValue = input.val().toLowerCase();
+        const filteredStations = busstations.filter(busstation => busstation.toLowerCase().includes(inputValue));
+        filteredStations.slice(0, 10).forEach(busstation => {
+            const listItem = $('<li>').text(busstation);
+            list.append(listItem);
+        });
+        if (filteredStations.length > 0) {
+            list.show();
+        } else {
+            list.hide();
+        }
+    }
+
+    $('.bus-input').on('input', function() {
+        const input = $(this);
+        const list = input.next('.bus-list');
+        populateCarList(input, list);
+    });
+
+    $('.bus-list').on('click', 'li', function() {
+        const listItem = $(this);
+        const input = listItem.parent().prev('.bus-input');
+        input.val(listItem.text());
+        listItem.parent().hide();
+    });
+
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('.bus-input').length) {
+            $('.bus-list').hide();
+        }
+    });
+});
+        document.getElementById('busForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            
+            const from = document.getElementById('busFrom').value;
+            const to = document.getElementById('busTo').value;
+            const date = document.getElementById('busDate').value;
+            const busClass = document.getElementById('busClass').value;
+            
+            fetch('allsearch/search/bus', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ from, to, date, type: busClass }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                initializeModal(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+            function initializeModal(buses) {
+        const resultsBody = document.getElementById('searchResultsBody');
+        resultsBody.innerHTML = ''; // Clear previous results
+        
+        const headerDates = document.createElement('div');
+headerDates.className = 'header-dates';
+headerDates.style.display = 'flex';
+headerDates.style.overflowX = 'scroll';
+headerDates.style.padding = '10px 0';
+headerDates.style.borderBottom = '1px solid #ddd';
+headerDates.style.whiteSpace = 'nowrap';
+
+const today = new Date();
+const tomorrow = new Date(today);
+tomorrow.setDate(today.getDate() + 1); // Get tomorrow's date
+
+// Function to get the number of days in a month
+function daysInMonth(month, year) {
+    return new Date(year, month + 1, 0).getDate();
+}
+
+// Create date buttons for each day from tomorrow onwards
+for (let i = 0; i < 365; i++) { // show next 365 days
+    const dateBtn = document.createElement('button');
+    const date = new Date(today);
+    date.setDate(tomorrow.getDate() + i);
+    
+    // Check if the year has changed
+    if (date.getFullYear() > today.getFullYear()) {
+        tomorrow.setFullYear(date.getFullYear());
+    }
+
+    const formattedDate = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    dateBtn.textContent = formattedDate;
+    dateBtn.className = 'date-button';
+    dateBtn.style.cursor = 'pointer';
+    dateBtn.style.padding = '10px 20px';
+    dateBtn.style.margin = '5px';
+    dateBtn.style.border = 'none';
+    dateBtn.style.background = '#007bff';
+    dateBtn.style.color = 'white';
+    dateBtn.style.borderRadius = '5px';
+    dateBtn.onclick = () => filterbusesByDate(date.toISOString(), buses);
+    headerDates.appendChild(dateBtn);
+}
+
+        const filterSection = document.createElement('div');
+        filterSection.className = 'filter-section';
+        filterSection.style.width = '20%';
+        filterSection.style.borderRight = '1px solid #ddd';
+        filterSection.style.padding = '10px';
+        
+        const filterTitle = document.createElement('h5');
+        filterTitle.textContent = 'Filters';
+        filterSection.appendChild(filterTitle);
+        
+        // Add some example filters (e.g., Non-Stop, Morning Departures, Evening Departures)
+        const filters = ['Non-Stop', 'Morning Departures', 'Evening Departures'];
+        filters.forEach(filter => {
+            const filterCheckbox = document.createElement('input');
+            filterCheckbox.type = 'checkbox';
+            filterCheckbox.id = filter.replace(/\s+/g, '');
+            filterCheckbox.name = filter;
+            filterCheckbox.value = filter;
+            filterCheckbox.onclick = () => applyFilter(trains);
+            
+            const filterLabel = document.createElement('label');
+            filterLabel.htmlFor = filter.replace(/\s+/g, '');
+            filterLabel.textContent = filter;
+            filterLabel.style.marginLeft = '5px';
+            
+            const filterDiv = document.createElement('div');
+            filterDiv.style.marginBottom = '10px';
+            filterDiv.appendChild(filterCheckbox);
+            filterDiv.appendChild(filterLabel);
+            
+            filterSection.appendChild(filterDiv);
+        });
+        
+        const contentSection = document.createElement('div');
+        contentSection.className = 'content-section';
+        contentSection.style.width = '80%';
+        contentSection.style.padding = '10px';
+        
+        const contentWrapper = document.createElement('div');
+        contentWrapper.style.display = 'flex';
+        
+        contentWrapper.appendChild(filterSection);
+        contentWrapper.appendChild(contentSection);
+        
+        resultsBody.appendChild(headerDates);
+        resultsBody.appendChild(contentWrapper);
+        
+        // Initially display all flights
+        displayBuses(buses, contentSection);
+        $('#searchResultsModal').modal('show'); // Show the modal
+    }     
+        
+    function displayBuses(buses, container) {
+        container.innerHTML = '';
+        if (buses.length === 0) {
+            container.innerHTML = '<p>No Bus found.</p>';
+            return;
+        }
+
+        buses.forEach(bus=> {
+            const listItem = document.createElement('div');
+            listItem.className = 'flight-item';
+            listItem.style.display = 'flex';
+            listItem.style.justifyContent = 'space-between';
+            listItem.style.alignItems = 'center';
+            listItem.style.borderBottom = '1px solid #ddd';
+            listItem.style.padding = '10px 0';
+            
+            listItem.innerHTML = `
+                <div class="flight-details" style="display: flex; gap: 20px; align-items: center;">
+                    <div style="display:flex;gap:5%">
+                        <img src="/uploads/indiGo_logo_PNG_(5).png" alt="${bus.busName}" style="width: 30px; height: 30px;margin-top:10%;margin-right:5% object-fit: contain;">
+                        <div style="display:flex;flex-direction:column">
+                            <div style="font-weight:bold">${bus.busName}</div>
+                            <div>${bus.busNumber}</div>
+                        </div>
+                    </div>
+                    <div class="travelduration">
+                        <div style="display:flex;flex-direction:column">
+                            <div>${new Date(bus.departureTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false })}</div>
+                            <span>${bus.departureStation}</span>
+                        </div>
+                        <div style="margin-left:25%;margin-right:25%">
+                            <div style="display:flex;place-content:center"> ⇆ </div>
+                            <div>${calculateDuration(bus.departureTime, bus.arrivalTime)}</div>
+                        </div>
+                        <div style="display:flex;flex-direction:column">
+                            <div>${new Date(bus.arrivalTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false })}</div>
+                            <span>${bus.arrivalStation}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-prices">
+        ${(() => {
+            const prices = bus.price;
+            //const minPrice = Math.min(...prices);
+            return `<div style="display:flex;flex-direction:column">
+                     <div>
+                        ₹${prices}
+                     </div>
+                     <span>per adult</span>
+                </div>`;
+        })()}
+        <button class="button" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">View Prices</button>
+    </div>
+            `;
+            
+            container.appendChild(listItem);
+        });
+    }
+    
+    async function filterbusesByDate(date) {
+    try {
+        let onlydate=date.split('T')[0];
+        const response = await fetch(`allsearch/search/bus?date=${onlydate}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch trains');
+        }
+        const filteredbuses = await response.json();
+        const contentSection = document.querySelector('.content-section');
+        displayBuses(filteredbuses,contentSection);
+    } catch (error) {
+        console.error('Error fetching flights:', error);
+        // Handle errors, e.g., display an error message to the user
+    }
+}
+
+    function applyFilter(buses) {
+        const nonStop = document.getElementById('Non-Stop').checked;
+        const morningDepartures = document.getElementById('MorningDepartures').checked;
+        const eveningDepartures = document.getElementById('EveningDepartures').checked;
+        
+        let filteredFlights = flights;
+        
+        if (nonStop) {
+            filteredFlights = filteredFlights.filter(flight => flight.nonStop);
+        }
+        if (morningDepartures) {
+            filteredFlights = filteredFlights.filter(flight => {
+                const hour = new Date(flight.departureDate).getHours();
+                return hour >= 6 && hour < 12;
+            });
+        }
+        if (eveningDepartures) {
+            filteredFlights = filteredFlights.filter(flight => {
+                const hour = new Date(flight.departureDate).getHours();
+                return hour >= 18 && hour < 24;
+            });
+        }
+        
+        const contentSection = document.querySelector('.content-section');
+        displayFlights(filteredFlights, contentSection);
+    }
+
+    function calculateDuration(departure, arrival) {
+        const dep = new Date(departure);
+        const arr = new Date(arrival);
+        const diffMs = arr - dep;
+        const diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+        const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+        return `${diffHrs}h ${diffMins.toString().padStart(2, '0')}m`;
+    }
+        //     function displayTrainResults(buses) {
+        //     const resultsBody = document.getElementById('searchResultsBody');
+        //     resultsBody.innerHTML = ''; // Clear previous results
+    
+        //     if (buses.length === 0) {
+        //         resultsBody.innerHTML = '<p>No Bus found.</p>';
+        //         $('#searchResultsModal').modal('show');
+        //         return;
+        //     }
+        //     const resultsList = document.createElement('ul');
+        //     resultsList.className = 'list-group';
+    
+        //     buses.forEach(bus => {
+        //         const listItem = document.createElement('li');
+        //         listItem.className = 'list-group-item';
+        //         listItem.innerHTML = `
+        //             <h5>${bus.busName}</h5>
+        //             <p>From: ${bus.departureStation}</p>
+        //             <p>To: ${bus.arrivalStation}</p>
+        //             <p>Date: ${bus.departureTime}</p>
+        //             <p>Type: ${bus.Type}</p>
+        //             <p>Price: ${bus.price}</p>
+        //         `;
+        //         resultsList.appendChild(listItem);
+        //     });
+    
+        //     resultsBody.appendChild(resultsList);
+        //     $('#searchResultsModal').modal('show'); // Show the modal
+        // }
+        });
+    </script>
+    <script>
+        const locations=JSON.parse('<%-JSON.stringify(locations)%>');
+        $(document).ready(function() {
+    function populateCarList(input, list) {
+        list.empty();
+        const inputValue = input.val().toLowerCase();
+        const filteredStations = locations.filter(location => location.toLowerCase().includes(inputValue));
+        filteredStations.slice(0, 10).forEach(location => {
+            const listItem = $('<li>').text(location);
+            list.append(listItem);
+        });
+        if (filteredStations.length > 0) {
+            list.show();
+        } else {
+            list.hide();
+        }
+    }
+
+    $('.car-input').on('input', function() {
+        const input = $(this);
+        const list = input.next('.car-list');
+        populateCarList(input, list);
+    });
+
+    $('.car-list').on('click', 'li', function() {
+        const listItem = $(this);
+        const input = listItem.parent().prev('.car-input');
+        input.val(listItem.text());
+        listItem.parent().hide();
+    });
+
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('.car-input').length) {
+            $('.car-list').hide();
+        }
+    });
+});
+
+document.getElementById('carForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            
+            const from = document.getElementById('carFrom').value;
+            const to = document.getElementById('carTo').value;
+            const date = document.getElementById('carDate').value;
+            const trainClass = document.getElementById('trainClass').value;
+            
+            fetch('allsearch/search/car', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ from, to, date, class: trainClass }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                initializeModal(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+            function initializeModal(cars) {
+        const resultsBody = document.getElementById('searchResultsBody');
+        resultsBody.innerHTML = ''; // Clear previous results
+        
+        const headerDates = document.createElement('div');
+headerDates.className = 'header-dates';
+headerDates.style.display = 'flex';
+headerDates.style.overflowX = 'scroll';
+headerDates.style.padding = '10px 0';
+headerDates.style.borderBottom = '1px solid #ddd';
+headerDates.style.whiteSpace = 'nowrap';
+
+const today = new Date();
+const tomorrow = new Date(today);
+tomorrow.setDate(today.getDate() + 1); // Get tomorrow's date
+
+// Function to get the number of days in a month
+function daysInMonth(month, year) {
+    return new Date(year, month + 1, 0).getDate();
+}
+
+// Create date buttons for each day from tomorrow onwards
+for (let i = 0; i < 365; i++) { // show next 365 days
+    const dateBtn = document.createElement('button');
+    const date = new Date(today);
+    date.setDate(tomorrow.getDate() + i);
+    
+    // Check if the year has changed
+    if (date.getFullYear() > today.getFullYear()) {
+        tomorrow.setFullYear(date.getFullYear());
+    }
+
+    const formattedDate = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    dateBtn.textContent = formattedDate;
+    dateBtn.className = 'date-button';
+    dateBtn.style.cursor = 'pointer';
+    dateBtn.style.padding = '10px 20px';
+    dateBtn.style.margin = '5px';
+    dateBtn.style.border = 'none';
+    dateBtn.style.background = '#007bff';
+    dateBtn.style.color = 'white';
+    dateBtn.style.borderRadius = '5px';
+    dateBtn.onclick = () => filtercarsByDate(date.toISOString(), cars);
+    headerDates.appendChild(dateBtn);
+}
+
+        const filterSection = document.createElement('div');
+        filterSection.className = 'filter-section';
+        filterSection.style.width = '20%';
+        filterSection.style.borderRight = '1px solid #ddd';
+        filterSection.style.padding = '10px';
+        
+        const filterTitle = document.createElement('h5');
+        filterTitle.textContent = 'Filters';
+        filterSection.appendChild(filterTitle);
+        
+        // Add some example filters (e.g., Non-Stop, Morning Departures, Evening Departures)
+        const filters = ['Non-Stop', 'Morning Departures', 'Evening Departures'];
+        filters.forEach(filter => {
+            const filterCheckbox = document.createElement('input');
+            filterCheckbox.type = 'checkbox';
+            filterCheckbox.id = filter.replace(/\s+/g, '');
+            filterCheckbox.name = filter;
+            filterCheckbox.value = filter;
+            filterCheckbox.onclick = () => applyFilter(cars);
+            
+            const filterLabel = document.createElement('label');
+            filterLabel.htmlFor = filter.replace(/\s+/g, '');
+            filterLabel.textContent = filter;
+            filterLabel.style.marginLeft = '5px';
+            
+            const filterDiv = document.createElement('div');
+            filterDiv.style.marginBottom = '10px';
+            filterDiv.appendChild(filterCheckbox);
+            filterDiv.appendChild(filterLabel);
+            
+            filterSection.appendChild(filterDiv);
+        });
+        
+        const contentSection = document.createElement('div');
+        contentSection.className = 'content-section';
+        contentSection.style.width = '80%';
+        contentSection.style.padding = '10px';
+        
+        const contentWrapper = document.createElement('div');
+        contentWrapper.style.display = 'flex';
+        
+        contentWrapper.appendChild(filterSection);
+        contentWrapper.appendChild(contentSection);
+        
+        resultsBody.appendChild(headerDates);
+        resultsBody.appendChild(contentWrapper);
+        
+        // Initially display all flights
+        displayCars(cars, contentSection);
+        $('#searchResultsModal').modal('show'); // Show the modal
+    }     
+        
+    function displayTrains(cars, container) {
+        container.innerHTML = '';
+        if (cars.length === 0) {
+            container.innerHTML = '<p>No Cab found.</p>';
+            return;
+        }
+
+        cars.forEach(car=> {
+            const listItem = document.createElement('div');
+            listItem.className = 'flight-item';
+            listItem.style.display = 'flex';
+            listItem.style.justifyContent = 'space-between';
+            listItem.style.alignItems = 'center';
+            listItem.style.borderBottom = '1px solid #ddd';
+            listItem.style.padding = '10px 0';
+            
+            listItem.innerHTML = `
+                <div class="flight-details" style="display: flex; gap: 20px; align-items: center;">
+                    <div style="display:flex;gap:5%">
+                        <img src="/uploads/indiGo_logo_PNG_(5).png" alt="${train.trainName}" style="width: 30px; height: 30px;margin-top:10%;margin-right:5% object-fit: contain;">
+                        <div style="display:flex;flex-direction:column">
+                            <div style="font-weight:bold">${train.trainName}</div>
+                            <div>${train.trainNumber}</div>
+                        </div>
+                    </div>
+                    <div class="travelduration">
+                        <div style="display:flex;flex-direction:column">
+                            <div>${new Date(train.departureTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false })}</div>
+                            <span>${train.departureStation}</span>
+                        </div>
+                        <div style="margin-left:25%;margin-right:25%">
+                            <div style="display:flex;place-content:center"> ⇆ </div>
+                            <div>${calculateDuration(train.departureTime, train.arrivalTime)}</div>
+                        </div>
+                        <div style="display:flex;flex-direction:column">
+                            <div>${new Date(train.arrivalTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit',hour12:false })}</div>
+                            <span>${train.arrivalStation}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-prices">
+        ${(() => {
+            const prices = train.coaches.map(coach=> coach.price);
+            const minPrice = Math.min(...prices);
+            return `<div style="display:flex;flex-direction:column">
+                     <div>
+                        ₹${minPrice}
+                     </div>
+                     <span>per adult</span>
+                </div>`;
+        })()}
+        <button class="button" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">View Prices</button>
+    </div>
+            `;
+            
+            container.appendChild(listItem);
+        });
+    }
+    
+    async function filtertrainsByDate(date) {
+    try {
+        let onlydate=date.split('T')[0];
+        const response = await fetch(`allsearch/search/train?date=${onlydate}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch trains');
+        }
+        const filteredtrains = await response.json();
+        const contentSection = document.querySelector('.content-section');
+        displayTrains(filteredtrains,contentSection);
+    } catch (error) {
+        console.error('Error fetching flights:', error);
+        // Handle errors, e.g., display an error message to the user
+    }
+}
+
+    function applyFilter(trains) {
+        const nonStop = document.getElementById('Non-Stop').checked;
+        const morningDepartures = document.getElementById('MorningDepartures').checked;
+        const eveningDepartures = document.getElementById('EveningDepartures').checked;
+        
+        let filteredFlights = flights;
+        
+        if (nonStop) {
+            filteredFlights = filteredFlights.filter(flight => flight.nonStop);
+        }
+        if (morningDepartures) {
+            filteredFlights = filteredFlights.filter(flight => {
+                const hour = new Date(flight.departureDate).getHours();
+                return hour >= 6 && hour < 12;
+            });
+        }
+        if (eveningDepartures) {
+            filteredFlights = filteredFlights.filter(flight => {
+                const hour = new Date(flight.departureDate).getHours();
+                return hour >= 18 && hour < 24;
+            });
+        }
+        
+        const contentSection = document.querySelector('.content-section');
+        displayFlights(filteredFlights, contentSection);
+    }
+
+    function calculateDuration(departure, arrival) {
+        const dep = new Date(departure);
+        const arr = new Date(arrival);
+        const diffMs = arr - dep;
+        const diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+        const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+        return `${diffHrs}h ${diffMins.toString().padStart(2, '0')}m`;
+    }
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+    function populateCarList(input, list) {
+        list.empty();
+        const inputValue = input.val().toLowerCase();
+        const filteredStations = locations.filter(location => location.toLowerCase().includes(inputValue));
+        filteredStations.slice(0, 10).forEach(location => {
+            const listItem = $('<li>').text(location);
+            list.append(listItem);
+        });
+        if (filteredStations.length > 0) {
+            list.show();
+        } else {
+            list.hide();
+        }
+    }
+
+    $('.rapido-input').on('input', function() {
+        const input = $(this);
+        const list = input.next('.rapido-list');
+        populateCarList(input, list);
+    });
+
+    $('.rapido-list').on('click', 'li', function() {
+        const listItem = $(this);
+        const input = listItem.parent().prev('.rapido-input');
+        input.val(listItem.text());
+        listItem.parent().hide();
+    });
+
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('.rapido-input').length) {
+            $('.rapido-list').hide();
+        }
+    });
+});
+
+        document.getElementById('rapidoForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            
+            const from = document.getElementById('trainFrom').value;
+            const to = document.getElementById('trainTo').value;
+            const date = document.getElementById('trainDate').value;
+            const trainClass = document.getElementById('trainClass').value;
+            
+            fetch('allsearch/search/rapido', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ from, to, date, class: trainClass }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                displayTrainResults(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    
+        function displayTrainResults(trains) {
+            const resultsBody = document.getElementById('searchResultsBody');
+            resultsBody.innerHTML = ''; // Clear previous results
+    
+            if (trains.length === 0) {
+                resultsBody.innerHTML = '<p>No trains found.</p>';
+                return;
+            }
+    
+            const resultsList = document.createElement('ul');
+            resultsList.className = 'list-group';
+    
+            trains.forEach(train => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item';
+                listItem.innerHTML = `
+                    <h5>${train.name}</h5>
+                    <p>From: ${train.from}</p>
+                    <p>To: ${train.to}</p>
+                    <p>Date: ${train.date}</p>
+                    <p>Class: ${train.class}</p>
+                    <p>Price: ${train.price}</p>
+                `;
+                resultsList.appendChild(listItem);
+            });
+    
+            resultsBody.appendChild(resultsList);
+            $('#searchResultsModal').modal('show'); // Show the modal
+        }
+    </script>
+    <script>
+        const hotellocations = JSON.parse('<%- JSON.stringify(hotellocations) %>');
+        $(document).ready(function() {
+            // Ensure the hotellocations array is correctly passed and parsed
+            console.log(hotellocations);
+            function populateHotelList(input, list) {
+                list.empty();
+                const inputValue = input.val().toLowerCase();
+                const filteredHotels = hotellocations.filter(hotel =>
+                    hotel.name.toLowerCase().includes(inputValue) ||
+                    hotel.location.toLowerCase().includes(inputValue)
+                );
+                filteredHotels.slice(0, 10).forEach(hotel => {
+                    const listItem = $('<li>').text(`${hotel.name}, ${hotel.location}`);
+                    list.append(listItem);
+                });
+                if (filteredHotels.length > 0) {
+                    list.show();
+                } else {
+                    list.hide();
+                }
+            }
+
+            // Event listeners for input fields
+            $('.hotel-input').on('input', function() {
+                const input = $(this);
+                const list = input.next('.hotel-list');
+                populateHotelList(input, list);
+            });
+
+            // Event listener for selecting a hotel from the list
+            $('.hotel-list').on('click', 'li', function() {
+                const listItem = $(this);
+                const input = listItem.parent().prev('.hotel-input');
+                input.val(listItem.text());
+                listItem.parent().hide();
+            });
+
+            $(document).on('click', function(event) {
+                if (!$(event.target).closest('.hotel-input').length) {
+                    $('.hotel-list').hide();
+                }
+            });
+        });
+        document.getElementById('hotelForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            
+            const from = document.getElementById('trainFrom').value;
+            const to = document.getElementById('trainTo').value;
+            const date = document.getElementById('trainDate').value;
+            const trainClass = document.getElementById('trainClass').value;
+            
+            fetch('allsearch/search/hotel', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ from, to, date, class: trainClass }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                displayTrainResults(data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        });
+    
+        function displayTrainResults(trains) {
+            const resultsBody = document.getElementById('searchResultsBody');
+            resultsBody.innerHTML = ''; // Clear previous results
+    
+            if (trains.length === 0) {
+                resultsBody.innerHTML = '<p>No trains found.</p>';
+                return;
+            }
+    
+            const resultsList = document.createElement('ul');
+            resultsList.className = 'list-group';
+    
+            trains.forEach(train => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item';
+                listItem.innerHTML = `
+                    <h5>${train.name}</h5>
+                    <p>From: ${train.from}</p>
+                    <p>To: ${train.to}</p>
+                    <p>Date: ${train.date}</p>
+                    <p>Class: ${train.class}</p>
+                    <p>Price: ${train.price}</p>
+                `;
+                resultsList.appendChild(listItem);
+            });
+    
+            resultsBody.appendChild(resultsList);
+            $('#searchResultsModal').modal('show'); // Show the modal
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>    
+</body>
+</html>
+

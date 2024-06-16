@@ -1,0 +1,86 @@
+<%- include('../layouts/main') -%>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+.container{
+    display: none;
+}
+.container1 {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.flight-card {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flight-card:last-child {
+    border-bottom: none;
+}
+
+.flight-card div {
+    flex: 1 1 50%;
+    padding: 5px 10px;
+}
+
+.flight-card div span {
+    font-weight: bold;
+    display: block;
+}
+
+.flight-details {
+    margin-top: 10px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    .flight-card div {
+        flex: 1 1 33.333%;
+    }
+}
+
+</style>
+<div class="container1">
+    <h1>Flight Details</h1>
+    <% flights.forEach(flight => { %>
+        <div class="flight-card">
+            <div>
+                <span>Airline:</span> <%= flight.airline %>
+            </div>
+            <div>
+                <span>Flight Number:</span> <%= flight.flightNumber %>
+            </div>
+            <div>
+                <span>Departure Airport:</span> <%= flight.departureAirport %>
+            </div>
+            <div>
+                <span>Arrival Airport:</span> <%= flight.arrivalAirport %>
+            </div>
+            <div>
+                <span>Departure Date:</span> <%= flight.departureDate %>
+            </div>
+            <div>
+                <span>Arrival Date:</span> <%= flight.arrivalDate %>
+            </div>
+            <div>
+                <span>Price:</span> <%= flight.price %>
+            </div>
+        </div>
+    <% }) %>
+</div>

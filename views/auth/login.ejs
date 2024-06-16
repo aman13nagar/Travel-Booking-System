@@ -1,0 +1,74 @@
+
+<div class="container">
+  <div class="login-container">
+    <h2>Login</h2>
+    <form action="/auth/login" method="POST" class="login-form">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" name="email" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-login">Login</button>
+    </form>
+  </div>
+</div>
+
+<style>
+  /* Custom styles for the login page */
+  .login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  .login-form .form-group {
+    margin-bottom: 20px;
+  }
+  .login-form label {
+    font-weight: bold;
+    color: #333;
+  }
+  .login-form input[type="email"],
+  .login-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  .login-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+  }
+  .login-form button:hover {
+    background-color: #0056b3;
+  }
+  .login-form p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #666;
+  }
+  .login-form p a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .login-form p a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+

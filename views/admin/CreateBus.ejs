@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Train</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="bus-container">
+        <h2>Create New Bus</h2>
+        <form id="bus-form" class="bus-form">
+            <div class="form-group">
+                <label for="busNumber">Bus Number</label>
+                <input type="text" name="busNumber" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="busName">Bus Name</label>
+                <input type="text" name="busName" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="departureStation">Departure Station</label>
+                <input type="text" name="departureStation" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="arrivalStation">Arrival Station</label>
+                <input type="text" name="arrivalStation" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="departureTime">Departure Time</label>
+                <input type="datetime-local" name="departureTime" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="arrivalTime">Arrival Time</label>
+                <input type="datetime-local" name="arrivalTime" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="type">Type</label>
+                <select class="form-control" name="type">
+                  <option>AC</option>
+                  <option>Non-AC</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" name="price" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success">Create Bus</button>
+        </form>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('bus-form').addEventListener('submit', async (event) => {
+                event.preventDefault();
+                
+                const formData = new FormData(event.target);
+                const formProps = Object.fromEntries(formData);
+                try {
+                    const response = await fetch('/buses/create', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formProps),
+                    });
+                    const result = await response.json();
+                    console.log(result);
+                    if (response.ok) {
+                        alert(result.message);
+                    } else {
+                        alert(result.error);
+                    }
+                } catch (error) {
+                    console.log('Error:', error);
+                }
+            });
+        });
+    </script>
+<style>
+  /* Custom styles for the bus creation page */
+  .bus-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fafafa;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  .bus-form .form-group {
+    margin-bottom: 20px;
+  }
+  .bus-form label {
+    font-weight: bold;
+    color: #333;
+  }
+  .bus-form input[type="text"],
+  .bus-form input[type="datetime-local"],
+  .bus-form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  .bus-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 16px;
+  }
+  .bus-form button:hover {
+    background-color: #218838;
+  }
+</style>
+</body>
+</html>
